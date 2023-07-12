@@ -1,0 +1,286 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 10, 2023, 4:16:44 PM
+    Author     : xuant
+*/
+:root{
+    --white-color:#fff;
+    --black-color: #000;
+    --text-color: #333;
+    --primary-color:/* #ee4d2d*/  rgb(79, 123, 204);
+    --border-color: #dbdbdb;
+    --navbar-height: 34px;
+    --header-height: 150px;
+    --header-with-search-height: calc(var(--header-height) - var(--navbar-height));
+    --star-gold-color: #ffce3e;
+}
+
+*{
+    box-sizing: inherit;
+    /* vi du thang cha co border-box thi con sde co 
+    border-box neu khong thi mac dinh la content-box */
+}
+
+html{
+    /* font-size: 100%; */
+    font-size: 62.5%;
+    /* gia tri nay de chuyen 1 rem = 10px 
+    mac dinh 100% la 16px*/
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+
+
+
+.grid{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+    /* khi thu nho man hinh thi kich thuoc 1200 se
+     giam di va bang 100% man hinh dc thu nho */
+}
+
+.grid__full-width{
+    width: 100%;
+}
+
+.grid__row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.grid__col-2{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6667%;
+}
+.grid__col-2-4{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+
+.grid__col-6{
+    padding-left: 5px;
+    padding-right: 20px;
+    width: 50%;
+}
+
+.grid__col-10{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 83.3334%;
+}
+/* Animation */
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes headerNotityGrowth{
+    from{
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes growth{
+    from{
+        transform: scale(--growth-from);
+    }
+
+    to{
+        transform: scale(--growth-to);
+    }
+}
+
+/* Modal */
+.modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    display: none;
+    animation: fadeIn ease-in 0.3s;
+}
+
+.login{
+    display: none;
+    /* display: block; */
+    /* margin: auto; */
+}
+
+.register{
+    display: none;
+    /* display: block; */
+    /* margin: auto; */
+}
+
+.modal__overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal__body{
+    --grow-form: 0.7;
+    --grow-to: 1;
+    /* width: 300px; */
+    /* height: 300px; */
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    animation: growth linear 0.1s;
+}
+
+/* Button style */
+
+.btn{
+    min-width: 124px;
+    height: 34px;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    font-size: 1.5rem;
+    /* ao vc */
+    /* background-color: var(--white-color); */
+    cursor: pointer;
+    color: var(--text-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 12px;
+    line-height: 1.6rem;
+}
+
+.btn.btn--normal:hover{
+    background-color: rgba(0,0,0,0.1);
+    /* cai nay o truoc nen btn-primary no se ghi de len nen mau cam */
+}
+
+.btn.btn--primary{
+    /* cach viet dau hcm la 1 element co 2 class */
+    color: var(--white-color);
+    background-color: var(--primary-color);
+}
+
+.btn.btn--disabled{
+    color: #ccc;
+    cursor: default;
+    background-color: #ccc;
+}
+
+
+.btn .btn--size-s{
+    height: 32px;
+    font-size: 12px;
+    padding: 0 8px;
+}
+
+/* selection */
+.select-input{
+    position: relative;
+    padding: 0 12px;
+    height: 34px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    min-width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.select-input:hover .select-input__list{
+    display: block;
+    z-index: 3;
+}
+
+.select-input__label{
+    font-size: 1.4rem;
+}
+
+.select-input__icon{
+    color: rgb(131,131,131);
+    position: relative;
+    top: 1px;
+}
+
+
+
+.select-input__list{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    list-style: none;
+    padding: 8px 16px;
+    display: none;
+}
+
+.select-input__link{
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    padding: 4px 0;   
+    
+}
+
+.select-input__link:hover{
+    color: var(--primary-color);
+}
+/* pagination */
+.pagnigation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    list-style: none;
+}
+.pagination-item{
+    margin: 0 12px;
+}
+
+.pagination-item--active .pagination-item__link{
+    color: var(--white-color);
+    background-color: var(--primary-color);
+}
+
+.pagination-item__link{
+    --height: 30px;
+
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: #939393;
+    min-width: 40px;
+    height: var(--height);
+    font-weight: 300;
+
+    display: block;
+    text-align: center;
+    line-height: var(--height);
+
+    border-radius: 2px;
+}
+
