@@ -60,35 +60,65 @@ public class FilterProductServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String sql = "";
-        if(action.equals("popular")) {
+        if(action.equals("popular") || action.equals("new") ||action.equals("ascprice") ||action.equals("descprice")) {
             sql = "SELECT [ProductID]\n"
                     + "      ,[ProductName]\n"
                     + "      ,[CategoryID]\n"
                     + "      ,[price]\n"
                     + "      ,[UnitsInStock]\n"
                     + "      ,[Brand]\n"
-                    + "  FROM [dbo].[products]\n"
-                    + "  ORDER BY UnitsInStock DESC";
-        } else if (action.equals("new")) {
-            sql = "SELECT [ProductID]\n"
-                    + "      ,[ProductName]\n"
-                    + "      ,[CategoryID]\n"
-                    + "      ,[price]\n"
-                    + "      ,[UnitsInStock]\n"
-                    + "      ,[Brand]\n"
-                    + "  FROM [dbo].[products]\n"
-                    + "  ORDER BY ProductID DESC";
+                    + "  FROM [dbo].[products]\n";
+                    
+            switch (action) {
+                case "popular":
+                    sql += "  ORDER BY UnitsInStock DESC";
+                    break;
+                case "new":
+                    sql += "  ORDER BY ProductID DESC";
+                    break;
+                case "ascprice":
+                    sql += "  ORDER BY price";
+                    break;
+                case "descprice":
+                    sql += "  ORDER BY price DESC";
+                    break;
+                default:
+                    break;
+            }
+        
+            
         } else if (action.equals("best")) {
             sql = "SELECT Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand, SUM(OrderDetails.Quantity) AS TotalQuantitySold\n"
                     + "FROM Products\n"
                     + "INNER JOIN OrderDetails ON Products.ProductID = OrderDetails.ProductID\n"
                     + "GROUP BY Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand\n"
                     + "ORDER BY TotalQuantitySold DESC;";
+        }else{
+            sql = "SELECT * FROM Products WHERE CategoryID = (SELECT CategoryID FROM Categories WHERE CategoryName =";
+            switch (action) {
+                case "HG":           
+                    sql += "'HG')";
+                    break;
+                case "RG":    
+                    sql += "'RG')";
+                    break;
+                case "MG":      
+                    sql += "'MG')";
+                    break;
+                case "PG":         
+                    sql += "'PG')";
+                    break;
+                case "TOOL":       
+                    sql += "'TOOL')";
+                    break;
+                default:
+                    break;
+            }
         }
 
         ProductDAO pd = new ProductDAO();
         request.setAttribute("data", pd.getProductByFilter(sql));
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("homepage.jsp").forward(request, response);
         
 
     }
@@ -118,3 +148,16 @@ public class FilterProductServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+/*
+} else if (action.equals("new")) {
+            sql = "SELECT [ProductID]\n"
+                    + "      ,[ProductName]\n"
+                    + "      ,[CategoryID]\n"
+                    + "      ,[price]\n"
+                    + "      ,[UnitsInStock]\n"
+                    + "      ,[Brand]\n"
+                    + "  FROM [dbo].[products]\n"
+                    + "  ORDER BY ProductID DESC";
+*/

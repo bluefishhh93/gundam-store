@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author xuant
  */
-public class Category {
+public class Category{
     private int id;
     private String name;
     private String image;
