@@ -128,6 +128,7 @@ public class ProductDAO extends DBcontext {
 
     public static void main(String[] args) {
         ProductDAO pd = new ProductDAO();
-        System.out.println(pd.getProductImages(2).size());
+        String sql = "SELECT * FROM Products WHERE Productname like '%e%'";
+        System.out.println(pd.getProductByFilter(sql));
     }
 }

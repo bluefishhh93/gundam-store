@@ -50,3 +50,13 @@
                         </button>
                     </div>
 <!-- search.jsp -->
+<!--SEARCH HANDLER-->
+<script>
+    let searchButtonEl = document.querySelector('.header__search-btn');
+    let searchInputEl = document.querySelector('.header__search-input');
+    
+    searchButtonEl.addEventListener("click",()=>{
+        window.location.href = "filterproduct?action=search&searchcontent=" + searchInputEl.value;
+    });
+    
+</script>

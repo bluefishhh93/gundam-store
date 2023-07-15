@@ -19,6 +19,7 @@ public class Product {
     private int unitInStock;
     private String brand;
     private List<String> images;
+    private List<String> productDetails;
 
     public Product() {
     }

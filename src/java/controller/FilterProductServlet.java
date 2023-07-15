@@ -60,7 +60,7 @@ public class FilterProductServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String sql = "";
-        if(action.equals("popular") || action.equals("new") ||action.equals("ascprice") ||action.equals("descprice")) {
+        if (action.equals("popular") || action.equals("new") || action.equals("ascprice") || action.equals("descprice")) {
             sql = "SELECT [ProductID]\n"
                     + "      ,[ProductName]\n"
                     + "      ,[CategoryID]\n"
@@ -68,7 +68,7 @@ public class FilterProductServlet extends HttpServlet {
                     + "      ,[UnitsInStock]\n"
                     + "      ,[Brand]\n"
                     + "  FROM [dbo].[products]\n";
-                    
+
             switch (action) {
                 case "popular":
                     sql += "  ORDER BY UnitsInStock DESC";
@@ -85,30 +85,33 @@ public class FilterProductServlet extends HttpServlet {
                 default:
                     break;
             }
-        
-            
+
         } else if (action.equals("best")) {
             sql = "SELECT Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand, SUM(OrderDetails.Quantity) AS TotalQuantitySold\n"
                     + "FROM Products\n"
                     + "INNER JOIN OrderDetails ON Products.ProductID = OrderDetails.ProductID\n"
                     + "GROUP BY Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand\n"
                     + "ORDER BY TotalQuantitySold DESC;";
-        }else{
+        } else if (action.equals("search")) {
+            String searchContent = request.getParameter("searchcontent");
+            String key = request.getParameter("searchcontent");
+            sql = "SELECT * FROM Products WHERE Productname like '%"+key+"%'";
+        } else {
             sql = "SELECT * FROM Products WHERE CategoryID = (SELECT CategoryID FROM Categories WHERE CategoryName =";
             switch (action) {
-                case "HG":           
+                case "HG":
                     sql += "'HG')";
                     break;
-                case "RG":    
+                case "RG":
                     sql += "'RG')";
                     break;
-                case "MG":      
+                case "MG":
                     sql += "'MG')";
                     break;
-                case "PG":         
+                case "PG":
                     sql += "'PG')";
                     break;
-                case "TOOL":       
+                case "TOOL":
                     sql += "'TOOL')";
                     break;
                 default:
@@ -119,7 +122,6 @@ public class FilterProductServlet extends HttpServlet {
         ProductDAO pd = new ProductDAO();
         request.setAttribute("data", pd.getProductByFilter(sql));
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
-        
 
     }
 
@@ -160,4 +162,4 @@ public class FilterProductServlet extends HttpServlet {
                     + "      ,[Brand]\n"
                     + "  FROM [dbo].[products]\n"
                     + "  ORDER BY ProductID DESC";
-*/
+ */

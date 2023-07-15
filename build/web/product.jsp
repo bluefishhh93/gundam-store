@@ -38,25 +38,8 @@
                         <p>Home / RG</p>
                         <h1>RG Qant Gundam</h1>
                         <h4>520.000</h4>
-                        <div class="single-product__rating">
-                            <p>Đánh giá:</p>
-                            </span class="rating">                                  
-                            <i class="home-product-item__star--gold fas fa-star"></i>
-                            <i class="home-product-item__star--gold fas fa-star"></i>
-                            <i class="home-product-item__star--gold fas fa-star"></i>
-                            <i class="home-product-item__star--gold fas fa-star"></i>
-                            <i class="fas fa-star"></i>                                
-                            </span>     
-                        </div>                               
-                        <p class="selled">Đã bán: <span class="selled-number" style="color: rgb(79, 123, 204);">20</span> sản phẩm</p>
-                        <select>
-                            <option>Select Size</option>
-                            <option>XXL</option>
-                            <option>XL</option>
-                            <option>Large</option>
-                            <option>Medium</option>
-                            <option>Small</option>
-                        </select>
+
+                        <p class="selled">Đã bán: <span class="selled-number" style="color: rgb(79, 123, 204);">20</span> sản phẩm</p>                       
                         <input type="number" value="1">
                         <button href="#" class="btn single-product__btn">Add to cart</button>
                         <h3>Product details <i class="fa fa-indent"></i></h3>
@@ -80,18 +63,12 @@
     var ProductImg = document.getElementById("ProductImg");
     var SmallImg = document.getElementsByClassName("small-img");
 
-    SmallImg[0].onclick = function () {
-        ProductImg.src = SmallImg[0].src;
+    for (var i = 0; i < SmallImg.length; i++) {
+        SmallImg[i].addEventListener("click", function () {
+            ProductImg.src = this.src;
+        });
     }
-    SmallImg[1].onclick = function () {
-        ProductImg.src = SmallImg[1].src;
-    }
-    SmallImg[2].onclick = function () {
-        ProductImg.src = SmallImg[2].src;
-    }
-    SmallImg[3].onclick = function () {
-        ProductImg.src = SmallImg[3].src;
-    }
+
 
 </script>
 <%@ include file="footer.jsp" %>
