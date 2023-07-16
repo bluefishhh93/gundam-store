@@ -18,7 +18,9 @@ public class Category {
         this.name = name;
         this.image = image;
     }
-
+    public Category(String name){
+        this.name = name;
+    }
     public int getId() {
         return id;
     }
@@ -42,8 +44,11 @@ public class Category {
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getId() + " " + getName() + " " + getImage();
+    }
 }
 /*
 	[CategoryID] int IDENTITY(1,1) PRIMARY KEY,

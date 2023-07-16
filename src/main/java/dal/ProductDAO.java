@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Category;
+import model.ManageOrder;
 import model.Product;
 
 
@@ -122,9 +123,175 @@ public class ProductDAO extends DBcontext {
 
         return list;
     }
+//    get ordertoday
+//    public ArrayList<ManageOrder> getOrderFromManager() {
+//        ArrayList<Order> list = new ArrayList<>();
+//        String sql = "Select [OrderID], [CustomerName], [PhoneNumber], [Address], [PurchaseDate], [TotalAmount], [Status] from [dbo].[ManageOrder]";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                int orderID = rs.getInt("OrderID");
+//                String customerName = rs.getString("CustomerName");
+//                String phoneNumber = rs.getString("PhoneNumber");
+//                String address = rs.getString("Address");
+//                String purchaseDate = rs.getString("PurchaseDate");
+//                double totalAmount = rs.getDouble("TotalAmount");
+//                String status = rs.getString("Status");
+//                ManageOrder ot = new ManageOrder(orderID, customerName, phoneNumber, address, purchaseDate, getProductByCid(), status);
+//                list.add(ot);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//
+//        return list;
+//    }
+//    count customer by customer id
+    public int countCustomer(){
+        int count = 0;
+        String sql = "SELECT COUNT(OrderID) AS TotalOrder FROM [dbo].[ManageOrder]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+//    -----------------------------------------------------------------------------------PRODUCT----------------------------------------------------------------------------------
+    public ArrayList<Product> getProducts(){
+        String sql = "SELECT\n" +
+                "    P.ProductID,\n" +
+                "    -- C.CategoryName,\n" +
+                "\tC.*,\n" +
+                "    P.ProductName,\n" +
+                "    P.Price,\n" +
+                "    P.ProductDetail,\n" +
+                "    P.UnitsInStock\n" +
+//                "    PI.ImagePath AS ProductImage\n" +
+                "FROM\n" +
+                "    [Products] P\n" +
+                "    INNER JOIN Categories C ON P.CategoryID = C.CategoryID\n" +
+                "    LEFT JOIN [dbo].[ProductImages] PI ON P.ProductID = PI.ProductID;";
+        ArrayList<Product> list = new ArrayList<>();
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("ProductID");
+                Category Category = new Category(rs.getInt("CategoryID"), rs.getString("CategoryName"), rs.getString("Picture"));
+                String ProductName = rs.getString("ProductName");
+                double Price = rs.getDouble("Price");
+                String ProductDetail = rs.getString("ProductDetail");
+                int UnitsInStock = rs.getInt("UnitsInStock");
+                List<String> ProductImage = getProductImages(id);
+                Product p = new Product(id,  ProductName, Category, Price, ProductDetail, UnitsInStock, ProductImage);
+                list.add(p);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
+    public Product getProduct(int id){
+        String sql = "SELECT\n" +
+                "    P.ProductID,\n" +
+                "    -- C.CategoryName,\n" +
+                "\tC.*,\n" +
+                "    P.ProductName,\n" +
+                "    P.Price,\n" +
+                "    P.ProductDetail,\n" +
+                "    P.UnitsInStock,\n" +
+                "    PI.ImagePath AS ProductImage\n" +
+                "FROM\n" +
+                "    [Products] P\n" +
+                "    INNER JOIN Categories C ON P.CategoryID = C.CategoryID\n" +
+                "    LEFT JOIN [dbo].[ProductImages] PI ON P.ProductID = PI.ProductID\n" +
+                "WHERE P.ProductID = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                Category Category = new Category(rs.getInt("CategoryID"), rs.getString("CategoryName"), rs.getString("Picture"));
+                String ProductName = rs.getString("ProductName");
+                double Price = rs.getDouble("Price");
+                String ProductDetail = rs.getString("ProductDetail");
+                int UnitsInStock = rs.getInt("UnitsInStock");
+                String ProductImage = rs.getString("ProductImage");
+                Product p = new Product(id,  ProductName, Category, Price, ProductDetail, UnitsInStock, ProductImage);
+                return p;
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    public int editProduct(Product product){
+//        update by id
+        String sql = "UPDATE [dbo].[Products]\n" +
+                "   SET [CategoryName] = ?\n" +
+                "      ,[ProductName] = ?\n" +
+                "      ,[Price] = ?\n" +
+                "      ,[ProductDetail] = ?\n" +
+                "      ,[UnitsInStock] = ?\n" +
+                " WHERE ProductID = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, product.getCategory().getName());
+            st.setString(2, product.getProductName());
+            st.setDouble(3, product.getPrice());
+            st.setString(4, product.getProductDetail());
+            st.setInt(5, product.getUnitInStock());
+//            st.setInt(6, product.getProductID());
+            return st.executeUpdate();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return -1;
+    }
 
+//-----------------------------------------------------------------CATEGORY---------------------------------------------------------------
+    public ArrayList<Category> getCategory(){
+        String sql = "SELECT * FROM Categories";
+        ArrayList<Category> list = new ArrayList<>();
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("CategoryID");
+                String name = rs.getString("CategoryName");
+                String img = rs.getString("Picture");
+                Category c = new Category(id, name, img);
+                list.add(c);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
+//    ------------------------------------------------------MAIN---------------------------------------------------------------
     public static void main(String[] args) {
         ProductDAO pd = new ProductDAO();
-        System.out.println(pd.getProductImages(2).size());
+//        System.out.println(pd.getProductImages(2).size());
+//        System.out.println(pd.getProductByCid(0).size());
+////        System.out.println(pd.getOrderFromManager());
+//        for ( ManageOrder i : pd.getOrderFromManager()) {
+//            System.out.println(i);
+//        }
+//        System.out.println(pd.countCustomer());
+//        for (Category i : pd.getCategory()) {
+//            System.out.println(i);
+//        }
+//
+        for (Product i : pd.getProducts()) {
+            System.out.println(i);
+        }
+
+//        System.out.println(pd.getProduct(1));
     }
 }

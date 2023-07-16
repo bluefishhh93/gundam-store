@@ -4,24 +4,22 @@ import dal.ProductDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.ManageOrder;
-//import jakarta.io.IOException;
+import model.Product;
 
 import java.io.IOException;
 import java.util.ArrayList;
+//import jakarta.io.IOException;
 
-@WebServlet(name = "Admin", value = "/admin")
-public class Admin extends HttpServlet {
+@WebServlet(name = "productList", value = "/product-list")
+public class productList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        return to AdminTemplate/index.html
         try {
             ProductDAO pd = new ProductDAO();
-//            ArrayList<ManageOrder> list = pd.getOrderFromManager();
-            request.setAttribute("countCustomer", pd.countCustomer());
-//            request.setAttribute("list", list);
-//            request.setAttribute("listOrder", list.size());
-            request.getRequestDispatcher("admin.jsp").forward(request, response);
+            ArrayList<Product> list = pd.getProducts();
+            request.setAttribute("list", list);
+            request.getRequestDispatcher("product-list.jsp").forward(request, response);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -29,6 +27,7 @@ public class Admin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
     }
 }

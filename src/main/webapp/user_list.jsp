@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,7 @@
                     </div>
                     <div class="dashboard-navigation">
                         <ul class="navigation-list">
-                            <li class="navigation-item"><a href="AdminTemplate/index.html"><i class="fas fa-tachometer-alt-fast"></i>Bảng điều khiển</a></li>
+                            <li class="navigation-item"><a href=""><i class="fas fa-tachometer-alt-fast"></i>Bảng điều khiển</a></li>
                             <li class="navigation-item"><a href="user_list.html"><i class="fas fa-user-circle"></i>Quản lí khách hàng</a></li>
                             <li class="navigation-item"><a href="product-list.html"><i class="fas fa-tags"></i>Quản lí sản phẩm</a></li>
                             <li class="navigation-item"><a href="order_list.html"><i class="fas fa-gift"></i>Quản lí đơn hàng</a></li>

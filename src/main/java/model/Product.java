@@ -11,15 +11,48 @@ import java.util.List;
 public class Product {
     private int ID;
     private String productName;
+
+
+
     private Category category;
     private double price;
+    private String productDetail;
     private int unitInStock;
     private String brand;
     private List<String> images;
 
+
+
+    private String picture;
+
     public Product() {
     }
-
+    public Product(int ID, String productName, Category category, double price, String productDetail, int unitInStock, List<String> images) {
+        this.ID = ID;
+        this.productName = productName;
+        this.category = category;
+        this.price = price;
+        this.productDetail = productDetail;
+        this.unitInStock = unitInStock;
+        this.images = images;
+    }
+    public Product(int ID, String productName, Category category, double price, String productDetail, int unitInStock, String picture) {
+        this.ID = ID;
+        this.productName = productName;
+        this.category = category;
+        this.price = price;
+        this.productDetail = productDetail;
+        this.unitInStock = unitInStock;
+        this.picture = picture;
+    }
+    public Product(String productName, Category category, double price, String productDetail, int unitInStock, String picture) {
+        this.productName = productName;
+        this.category = category;
+        this.price = price;
+        this.productDetail = productDetail;
+        this.unitInStock = unitInStock;
+        this.picture = picture;
+    }
     public Product(int ID, String productName, Category category, double price, int unitInStock, String brand) {
         this.ID = ID;
         this.productName = productName;
@@ -84,13 +117,40 @@ public class Product {
     public void setImages(List<String> images) {
         this.images = images;
     }
-    
-    
+    public String getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(String productDetail) {
+        this.productDetail = productDetail;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public int getTotalProductSold(){
         ProductDAO pd = new ProductDAO();
         return pd.getTotalProductSold(ID);
     }
-    
+
+    public String getFirstImage(){
+        return images.get(0);
+    }
+    @Override
+    public String toString() {
+        return getID() + " "
+                + getCategory() + " "
+                + getProductName() + " "
+                + getPrice() + " "
+                + getUnitInStock() + " "
+                + getProductDetail() + " "
+                + getImages();
+    }
 }
 /*
  CREATE TABLE [dbo].[Products](

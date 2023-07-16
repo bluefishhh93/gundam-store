@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +28,8 @@
                     </div>
                     <div class="dashboard-navigation">
                         <ul class="navigation-list">
-                            <li class="navigation-item"><a href="admin.jsp"><i class="fas fa-tachometer-alt-fast"></i>Bảng điều khiển</a></li>
-                            <li class="navigation-item"><a href="user_list.html"><i class="fas fa-user-circle"></i>Quản lí khách hàng</a></li>
+                            <li class="navigation-item"><a href="${pageContext.request.contextPath}/admin"><i class="fas fa-tachometer-alt-fast"></i>Bảng điều khiển</a></li>
+                            <li class="navigation-item"><a href="${pageContext.request.contextPath}/userlist"><i class="fas fa-user-circle"></i>Quản lí khách hàng</a></li>
                             <li class="navigation-item"><a href="product-list.html"><i class="fas fa-tags"></i>Quản lí sản phẩm</a></li>
                             <li class="navigation-item"><a href="order_list.html"><i class="fas fa-gift"></i>Quản lí đơn hàng</a></li>
                         </ul>
@@ -42,7 +43,8 @@
                                     <i class="fas fa-users"  style="background-color: rgb(169, 245, 169); color: green;"></i>
                                     <div class="information__item-content">
                                     <h2>Tổng khách hàng</h2>
-                                    <h3>5 khách hàng</h3>
+<%--                                    <h3>5 khách hàng</h3>--%>
+                                    <h3>${countCustomer} khách hàng</h3>
                                     <p>Tổng số khách hàng được quản lý</p>
                                     </div>
                                 </div>
@@ -58,8 +60,8 @@
                                     <i class="fab fa-shopify" style="background-color: rgb(245, 212, 152); color: orange;"></i>
                                     <div class="information__item-content">
                                     <h2>Tổng đơn hàng</h2>
-                                    <h3>14 đơn hàng</h3>
-                                    <p>Tổng số khách hàng được quản lý</p>
+                                    <h3>${listOrder} đơn hàng</h3>
+                                    <p>Tổng số đơn hàng được quản lý</p>
                                     </div>
                                 </div>
                                 <div class="information__item">
@@ -85,24 +87,17 @@
                                       <th>Tổng tiền</th>
                                       <th>Trạng thái</th>
                                     </tr>
-                                    <tr>
-                                      <td>1</td>
-                                      <td>Mai Lê</td>
-                                      <td>0134245345</td>
-                                      <td>Da Nang</td>
-                                      <td>2023-02-02</td>
-                                      <td>520.000$</td>
-                                      <td>Đã hoàn thành</td>
-                                    </tr>
-                                    <tr>
-                                      <td>2</td>
-                                      <td>Thanh Lê</td>
-                                      <td>0134245345</td>
-                                      <td>Quang Nam</td>
-                                      <td>2023-02-02</td>
-                                      <td>780.000$</td>
-                                      <td>Đã hoàn thành</td>
-                                    </tr>
+                                    <c:forEach var="order" items="${list}">
+                                        <tr>
+                                            <td>${order.orderID}</td>
+                                            <td>${order.customerName}</td>
+                                            <td>${order.phoneNumber}</td>
+                                            <td>${order.address}</td>
+                                            <td>${order.purchaseDate}</td>
+                                            <td>${order.totalAmount}</td>
+                                            <td>${order.status}</td>
+                                        </tr>
+                                    </c:forEach>
                                     
                                   </table>
                             </div>

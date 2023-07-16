@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,19 +57,21 @@
                                       <th>Hình ảnh</th>
                                       <th>Tính năng</th>                                    
                                     </tr>
+                                    <c:forEach items="${list}" var="product">
                                     <tr>
-                                      <td>SP1</td>
-                                      <td>RG</td>
-                                      <td>RG Qant Gundam</td>
-                                      <td>520.000$</td>
-                                      <td>Mô hình tỉ lệ 1/144, chính hãng bandai</td>
-                                      <td>4</td>
-                                      <td><img src="assets/img/product.png" alt=""></td>
-                                      <td>
-                                        <i class="fas fa-trash-alt"></i>
-                                        <i class="fas fa-edit"></i>
-                                    </td>
-                                 
+                                        <td>${product.ID}</td>
+                                        <td>${product.category.name}</td>
+                                        <td>${product.productName}</td>
+                                        <td>${product.price}</td>
+                                        <td>${product.productDetail}</td>
+                                        <td>${product.unitInStock}</td>
+                                        <td><img src="${product.images[0]}" alt=""></td>
+                                        <td>
+                                            <a href="edit-product?id=${product.ID}"><i class="fas fa-edit"></i></a>
+                                            <a href="delete-product?id=${product.ID}"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                    </c:forEach>
                                     
                                   </table>
                             </div>
