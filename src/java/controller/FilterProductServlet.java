@@ -88,10 +88,10 @@ public class FilterProductServlet extends HttpServlet {
             }
 
         } else if (action.equals("best")) {
-            sql = "SELECT Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand, SUM(OrderDetails.Quantity) AS TotalQuantitySold\n"
+            sql = "SELECT Products.ProductID, Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand, SUM(OrderDetails.Quantity) AS TotalQuantitySold\n"
                     + "FROM Products\n"
                     + "INNER JOIN OrderDetails ON Products.ProductID = OrderDetails.ProductID\n"
-                    + "GROUP BY Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand\n"
+                    + "GROUP BY Products.ProductID, Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand\n"
                     + "ORDER BY TotalQuantitySold DESC;";
         } else if (action.equals("search")) {
             String key = request.getParameter("searchcontent");

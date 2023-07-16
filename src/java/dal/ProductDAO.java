@@ -172,8 +172,12 @@ public class ProductDAO extends DBcontext {
 
     public static void main(String[] args) {
         ProductDAO pd = new ProductDAO();
-        String sql = "SELECT * FROM Products WHERE Productname like '%e%'";
+        String sql = "SELECT Products.ProductID, Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand, SUM(OrderDetails.Quantity) AS TotalQuantitySold\n"
+                    + "FROM Products\n"
+                    + "INNER JOIN OrderDetails ON Products.ProductID = OrderDetails.ProductID\n"
+                    + "GROUP BY Products.ProductID, Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand\n"
+                    + "ORDER BY TotalQuantitySold DESC;";;
 //        System.out.println(pd.getProductByFilter(sql));
-        System.out.println((String)pd.getProductByID(6).getProductName());
+        System.out.println(pd.getProductByFilter(sql));
     }
 }

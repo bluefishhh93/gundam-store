@@ -16,7 +16,7 @@
                             <ul class="header__navbar-user-menu">
                                 <li class="header__navbar-user-item"><a href="#">Tài khoản của tôi</a></li>
                                 <li class="header__navbar-user-item"><a href="#">Đơn mua</a></li>
-                                <li class="header__navbar-user-item"><a href="#">Đăng xuất</a></li>
+                                <li class="header__navbar-user-item"><a href="logout">Đăng xuất</a></li>
                             </ul>
                         </li> 
                     </ul>

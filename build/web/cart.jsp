@@ -42,7 +42,7 @@
                                     Phân loại: ${i.product.category.name}
                                 </span>
                                 <form name="processcartform2" action="processcart" method="post">
-                                    <input type="hidden" name="id" value="${i.product.ID}"/>
+                                    <input type="hidden" name="idhome" value="${i.product.ID}"/>
                                 </form>
                                 <span class="header__cart-item-remove" onclick="document.processcartform2.submit()"> Xóa </span>
                             </div>
