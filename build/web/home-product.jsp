@@ -11,14 +11,14 @@
         <c:forEach items="${requestScope.data}" var="p">
             <div class="grid__col-2-4">
                 <!-- Product item -->
-                <a class="home-product-item" href="single_product.html">
+                <a class="home-product-item" href="singleproduct?productid=${p.ID}">
                     <div class="home-product-item__img"
                          style="background-image:url('${p.images.get(0)}');">
                     </div>
                     <h4 class="home-product-item__name">${p.productName}</h4>
                     <div class="home-product-item__price">
-                        <span class="home-product-item__price-old"><fmt:formatNumber pattern="##.#" value="${p.price*1.1}"/></span>
-                        <span class="home-product-item__price-current"><fmt:formatNumber pattern="##.#" value="${p.price}"/></span>
+                        <span class="home-product-item__price-old"><fmt:formatNumber type="number" groupingUsed="true" value="${p.price*1.1}"/> đ</span>
+                        <span class="home-product-item__price-current"><fmt:formatNumber type="number" groupingUsed="true" value="${p.price}"/> đ</span>
                     </div>
                     <div class="home-product-item__action">
                         <span class="home-product-item__like home-product-item__like--liked">

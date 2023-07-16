@@ -17,7 +17,7 @@
                     </h3>
                     <ul class="category-list">
                         <li class="category-item"> <!--category-item--active-->                           
-                            <a href="homepage.jsp" class="category-item__link">Tất cả sản phẩm</a>
+                            <a href="loadpage" class="category-item__link">Tất cả sản phẩm</a>
                         </li>
                         
                         <c:forEach items="${requestScope.categoryList}" var="category">

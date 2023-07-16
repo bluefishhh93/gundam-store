@@ -13,16 +13,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Category;
 import model.Product;
+import model.User;
 
 /**
  *
  * @author xuant
  */
-@WebServlet(name = "LoadPageServlet", urlPatterns = {"/homepage.jsp"})
+@WebServlet(name = "LoadPageServlet", urlPatterns = {"/loadpage"})
 public class LoadPageServlet extends HttpServlet {
 
     /**
@@ -64,25 +66,33 @@ public class LoadPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //get data if a servlet send to
-        ArrayList<Product> list=(ArrayList<Product>) request.getAttribute("data"); 
-        
+        ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("data");
+
         ProductDAO pd = new ProductDAO();
         CategoryDAO cd = new CategoryDAO();
-        
+
         List<Product> productList;
-        if(list == null){
+        if (list == null) {
             //no data
-            productList =  pd.getProductByCid(0);
-        }else{
+            productList = pd.getProductByCid(0);
+        } else {
             productList = list;
         }
-        
+
         //get all category to display in index.jsp
         List<Category> categoryList = cd.getAllCategory();
         request.setAttribute("categoryList", categoryList);
-        
+
         //set data in home-product.jsp
         request.setAttribute("data", productList);
+
+        HttpSession session = request.getSession();
+
+        // Access and manipulate session attributes as needed
+//        User attributeValue = (User) session.getAttribute("account");
+//        session.setAttribute("account", attributeValue);
+//        session.setAttribute("size", session.getAttribute("size"));
+//        session.setAttribute("cart", session.getAttribute("cart"));
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

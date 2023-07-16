@@ -88,12 +88,22 @@ public class Product {
     public void setImages(List<String> images) {
         this.images = images;
     }
+
+    public List<String> getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(List<String> productDetails) {
+        this.productDetails = productDetails;
+    }
+    
     
     
     public int getTotalProductSold(){
         ProductDAO pd = new ProductDAO();
         return pd.getTotalProductSold(ID);
     }
+    
     
 }
 /*

@@ -8,6 +8,7 @@
 
 <!-- login.jsp -->
 <!-- Login form -->
+
 <div class="auth-form login">
     <div class="auth-form__container">
         <div class="auth-form__header">
@@ -15,15 +16,14 @@
             <span class="auth-form__switch-btn">Đăng ký</span>
         </div>
         <div class="auth-form__form">
+            <form name="loginform" action="login" method="GET">
             <div class="auth-form__group">
-                <input type="text" class="auth-form__input" placeholder="Nhập email của bạn">
+                <input type="text" class="auth-form__input" placeholder="Nhập email của bạn" name="email">
             </div>
             <div class="auth-form__group">
-                <input type="password" class="auth-form__input" placeholder="Nhập mật khẩu của bạn">
+                <input type="password" class="auth-form__input" placeholder="Nhập mật khẩu của bạn" name="pass">
             </div>
-            <div class="auth-form__group">
-                <input type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu của bạn">
-            </div>
+           
         </div>
         <div class="auth-form__aside">
             <div class="auth-form__help">
@@ -34,8 +34,9 @@
         </div>
         <div class="auth-form__controls">
             <button class="btn btn--normal">TRỞ LẠI</button>
-            <button class="btn btn--primary">ĐĂNG NHẬP</button>
+            <button type="submit" class="btn btn--primary">ĐĂNG NHẬP</button>
         </div>
+         </form>
     </div>
     <div class="auth-form__socials">
         <a href="" class=" auth-form__socials-facebook btn btn--size-s btn--with-icon">
@@ -50,7 +51,6 @@
 </div>
 </div>
 </div>
-
 <script src="assets/js/mycode.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

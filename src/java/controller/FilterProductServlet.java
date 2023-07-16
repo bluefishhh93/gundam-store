@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -93,9 +94,29 @@ public class FilterProductServlet extends HttpServlet {
                     + "GROUP BY Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand\n"
                     + "ORDER BY TotalQuantitySold DESC;";
         } else if (action.equals("search")) {
-            String searchContent = request.getParameter("searchcontent");
             String key = request.getParameter("searchcontent");
-            sql = "SELECT * FROM Products WHERE Productname like '%"+key+"%'";
+            sql = "SELECT * FROM Products WHERE Productname like '%" + key + "%'";
+            Cookie[] arr = request.getCookies();
+            String txt = "";
+            if (arr != null) {
+                for (Cookie cookie : arr) {
+                    if (cookie.getName().equals("searchhistory")) {
+                        txt += cookie.getValue();
+                        // Remove the line below if you want to update the cookie value instead of deleting it
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                    }
+                }
+            }
+            if (txt.isEmpty()) {
+                txt = key;
+            } else {
+                txt = txt + "/" + key;
+            }
+
+            Cookie c = new Cookie("searchhistory", txt);
+            c.setMaxAge(2 * 60);
+            response.addCookie(c);
         } else {
             sql = "SELECT * FROM Products WHERE CategoryID = (SELECT CategoryID FROM Categories WHERE CategoryName =";
             switch (action) {
@@ -120,8 +141,11 @@ public class FilterProductServlet extends HttpServlet {
         }
 
         ProductDAO pd = new ProductDAO();
-        request.setAttribute("data", pd.getProductByFilter(sql));
-        request.getRequestDispatcher("homepage.jsp").forward(request, response);
+
+        request.setAttribute(
+                "data", pd.getProductByFilter(sql));
+        request.getRequestDispatcher(
+                "loadpage").forward(request, response);
 
     }
 

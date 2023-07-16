@@ -46,12 +46,15 @@ CREATE TABLE [dbo].[ProductImages](
 CREATE TABLE [dbo].[Orders](
 	[OrderID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
-	[OrderDate] [datetime] NULL,
-	[ShippedDate] [datetime] NULL,
+	[OrderDate] [date] NULL,
+	[ShippedDate] [date] NULL,
 	[ShipAddress] [nvarchar](60) NULL,
+	[TotalMoney] [money] NULL,
+	[OrderStatus] [smallint] NULL,
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED (OrderID),
  CONSTRAINT [FK_Orders_Users] FOREIGN KEY([UserID]) REFERENCES [dbo].[Users] ([UserID])
 )
+
 
 
 CREATE TABLE [dbo].[OrderDetails](
@@ -59,11 +62,14 @@ CREATE TABLE [dbo].[OrderDetails](
 	[ProductID] [int] NOT NULL,
 	[UnitPrice] [money] NOT NULL,
 	[Quantity] [smallint] NOT NULL,
- CONSTRAINT [PK_Order_Details] PRIMARY KEY CLUSTERED (OrderID),
+ CONSTRAINT [PK_OrderLine] PRIMARY KEY CLUSTERED
+(
+[OrderID] ASC,
+[ProductID] ASC
+),
  CONSTRAINT [FK_OrderDetails_Orders] FOREIGN KEY([OrderID]) REFERENCES [dbo].[Orders] ([OrderID]),
  CONSTRAINT [FK_OrderDetails_Products] FOREIGN KEY([ProductID]) REFERENCES [dbo].[Products] ([ProductID])
  )
-
 
 CREATE TABLE [dbo].[Feedbacks](
 	[FeedbackID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -108,7 +114,7 @@ INSERT INTO Categories VALUES ('TOOL', 'assets/img/TOOLlogo.jpg');
 /*------------------------Them san pham-----------------------*/
 
 INSERT INTO Products VALUES ('HG Vidar Gundam', 1, 285000, 3, 'Bandai',N'Mô hình lắp ráp tỉ lệ HG 1/144.Hãng sản xuất : Bandai (Nhật Bản).Thích hợp với người chơi trình độ sơ cấp trở lên.Chất liệu nhựa, thân thiện và an toàn với môi trường');
-INSERT INTO Products VALUES ('HG Barbatos Lupus Gundam', 1, 185000, 20, N'Bandai','Mô hình lắp ráp tỉ lệ HG 1/144.Hãng sản xuất : Bandai (Nhật Bản).Thích hợp với người chơi trình độ sơ cấp trở lên.Chất liệu nhựa, thân thiện và an toàn với môi trường');
+INSERT INTO Products VALUES ('HG Barbatos Lupus Gundam', 1, 185000, 20, N'Bandai',N'Mô hình lắp ráp tỉ lệ HG 1/144.Hãng sản xuất : Bandai (Nhật Bản).Thích hợp với người chơi trình độ sơ cấp trở lên.Chất liệu nhựa, thân thiện và an toàn với môi trường');
 INSERT INTO Products VALUES ('HG Aerial Gundam', 1, 500000, 10, 'Bandai',N'Mô hình lắp ráp tỉ lệ HG 1/144.Hãng sản xuất : Bandai (Nhật Bản).Thích hợp với người chơi trình độ sơ cấp trở lên.Chất liệu nhựa, thân thiện và an toàn với môi trường');
 INSERT INTO Products VALUES ('HG Age II Gundam', 1, 540000, 20, 'Bandai',N'Mô hình lắp ráp tỉ lệ HG 1/144.Hãng sản xuất : Bandai (Nhật Bản).Thích hợp với người chơi trình độ sơ cấp trở lên.Chất liệu nhựa, thân thiện và an toàn với môi trường');
 INSERT INTO Products VALUES ('HG 00 Sky Gundam', 1, 350000, 20, 'Bandai',N'Mô hình lắp ráp tỉ lệ HG 1/144.Hãng sản xuất : Bandai (Nhật Bản).Thích hợp với người chơi trình độ sơ cấp trở lên.Chất liệu nhựa, thân thiện và an toàn với môi trường');
@@ -265,7 +271,8 @@ INSERT INTO ProductImages VALUES(25,'assets/img/gundammaker1.jpg')
 
 
 
-
+SELECT * FROM ORDERS
+SELECT * FROM OrderDetails
 
 SELECT * FROM Categories
 
@@ -291,4 +298,5 @@ SELECT * FROM Products WHERE Productname like '%e%'
 	[isAdmin] bit NULL,
 */
 INSERT INTO Users VALUES(123321,'Thanh', '0372343515', 'thanh@gmail.com', 1)
+SELECT *  FROM Users
 

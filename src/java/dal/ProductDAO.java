@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import model.Category;
 import model.Product;
@@ -90,8 +91,8 @@ public class ProductDAO extends DBcontext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, productID);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
-                return rs.getInt(1);               
+            if (rs.next()) {
+                return rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -99,10 +100,10 @@ public class ProductDAO extends DBcontext {
 
         return 0;
     }
-    
+
     public List<Product> getProductByFilter(String sql) {
         List<Product> list = new ArrayList<>();
-        CategoryDAO cd = new CategoryDAO();               
+        CategoryDAO cd = new CategoryDAO();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -126,9 +127,53 @@ public class ProductDAO extends DBcontext {
         return list;
     }
 
+    public Product getProductByID(int id) {
+        CategoryDAO cd = new CategoryDAO();
+        String sql = "SELECT [ProductID]\n"
+                + "      ,[ProductName]\n"
+                + "      ,[CategoryID]\n"
+                + "      ,[price]\n"
+                + "      ,[UnitsInStock]\n"
+                + "      ,[Brand]\n"
+                + "      ,[ProductDetail]\n"
+                + "  FROM [dbo].[products]\n"
+                + "  WHERE [ProductID] = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String productName = rs.getString("ProductName");
+                int categoryID = rs.getInt("CategoryID");
+                double price = rs.getDouble("price");
+                int unitInStock = rs.getInt("UnitsInStock");
+                String brand = rs.getString("Brand");
+                String productDetailString = rs.getString("ProductDetail");
+                Category category = cd.getCategoryById(categoryID);
+                Product p = new Product(id, productName, category, price, unitInStock, brand);
+                p.setImages(getProductImages(id));                
+                
+                String[] parts = productDetailString.split("\\.");
+                List<String> list = Arrays.asList(parts);
+                p.setProductDetails(list);
+                
+                return p;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+
+    }
+    
+   
+
     public static void main(String[] args) {
         ProductDAO pd = new ProductDAO();
         String sql = "SELECT * FROM Products WHERE Productname like '%e%'";
-        System.out.println(pd.getProductByFilter(sql));
+//        System.out.println(pd.getProductByFilter(sql));
+        System.out.println((String)pd.getProductByID(6).getProductName());
     }
 }
