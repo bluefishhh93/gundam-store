@@ -33,7 +33,6 @@ CREATE TABLE Categories(
  )
 
 
-
 CREATE TABLE [dbo].[ProductImages](
 	[ImageID] [int] IDENTITY(1,1) NOT NULL,
 	[ProductID] [int] NOT NULL,
@@ -83,13 +82,13 @@ CONSTRAINT [FK_Feedbacks_Users] FOREIGN KEY([UserID])
 REFERENCES [dbo].[Users] ([UserID])
 )
 
-
 CREATE TABLE [dbo].[Notifications](
 	[NotificationID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
 	[Title] [nvarchar](200)NOT NULL,
 	[Message] [nvarchar](500)NOT NULL,
 	[CreatedAt] [date] NOT NULL DEFAULT GETDATE(),
+	[Type] [smallint] NOT NULL,
  CONSTRAINT [PK_Notifications] PRIMARY KEY CLUSTERED (NotificationID),
  CONSTRAINT [FK_Notifications_Users] FOREIGN KEY([UserID]) REFERENCES [dbo].[Users] ([UserID])
  )
@@ -273,9 +272,10 @@ INSERT INTO ProductImages VALUES(25,'assets/img/gundammaker1.jpg')
 
 SELECT * FROM ORDERS
 SELECT * FROM OrderDetails
-
+SELECT * FROM Users
+delete from notifications  where notificationId = 1
 SELECT * FROM Categories
-
+SELECT * FROM Notifications
 SELECT * FROM Products
 
 SELECT * FROM ProductImages

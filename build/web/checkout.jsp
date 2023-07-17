@@ -61,11 +61,15 @@
                         <td></td>
                         <td>
                             <form action="checkout" method="post">
-                                <span>Tỉnh/Thành phố:</span> <select name="province" id="province" required></select><br>
-                                <span> Quận/Huyện:</span><select name="district" id="district" required>
+                                <span>Tỉnh/Thành phố:</span> 
+                                <select name="province" id="province" required>
+                                     <option value="">Chọn quận</option>
+                                </select><br>
+                                <span> Quận/Huyện:</span>
+                                <select name="district" id="district" required>
                                     <option value="">Chọn quận</option>
                                 </select><br>
-                                <span>Xã/Phường/thị trấn:</span><select name="ward" id="ward" required>
+                                <span>Xã/Phường</span><select name="ward" id="ward" required>
                                     <option value="">Chọn phường</option>
                                 </select><br>
                                 <span>Địa chỉ:</span><input type="text" placeholder="Ví dụ: 123 Hùng Vương" name="address"><br>

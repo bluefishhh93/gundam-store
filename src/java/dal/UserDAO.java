@@ -7,6 +7,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import model.Notification;
 import model.User;
 
 /**
@@ -49,7 +50,9 @@ public class UserDAO extends DBcontext {
                 User user = new User(rs.getInt("UserID"), rs.getString("Password"),
                         rs.getString("Name"), rs.getString("phone"),
                         rs.getString("Email"), rs.getBoolean("isAdmin"));
-
+                
+                NotifyDAO nd = new NotifyDAO();
+                user.setNotifications(nd.getUserNotification(user.getUserID()));
                 return user;
 
             }
@@ -82,6 +85,6 @@ public class UserDAO extends DBcontext {
 
     public static void main(String[] args) {
         UserDAO ud = new UserDAO();
-        System.out.println(ud.check("thanh@gmail.com", "123321").getName());
+        System.out.println(ud.check("thanh@gmail.com", "123321").getUncheckOrder());
     }
 }

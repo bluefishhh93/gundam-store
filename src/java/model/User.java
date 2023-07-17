@@ -4,6 +4,7 @@
  */
 package model;
 
+import dal.OrderDAO;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class User {
     private String phone;
     private String email;
     private boolean isAdmin;
-
+    private List<Notification> notifications;
     public User() {
     }
 
@@ -78,5 +79,20 @@ public class User {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+    
+    public List<Order> getUncheckOrder(){
+        OrderDAO od = new OrderDAO();
+        return od.uncheckedOrders(userID);
+    }
+    
+    
 
 }

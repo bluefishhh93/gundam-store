@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
 import dal.NotifyDAO;
-import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,46 +14,42 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Cart;
 import model.User;
 
 /**
  *
  * @author xuant
  */
-@WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
-public class CheckoutServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="NotificationServlet", urlPatterns={"/notification"})
+public class NotificationServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckoutServlet</title>");
+            out.println("<title>Servlet NotificationServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet NotificationServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,13 +57,24 @@ public class CheckoutServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+    throws ServletException, IOException {
+        String nid = request.getParameter("nid");
+        int removeNotificationID;
+        try {
+            removeNotificationID = Integer.parseInt(nid);
+            NotifyDAO nd = new NotifyDAO();
+            nd.removeUserNotication(removeNotificationID);
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("account");
+            user.setNotifications(nd.getUserNotification(user.getUserID()));
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        request.getRequestDispatcher("loadpage").forward(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -75,35 +82,12 @@ public class CheckoutServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Cart cart = null;
-        Object o = session.getAttribute("cart");
-        if (o != null) {
-            cart = (Cart) o;
-        } else {
-            cart = new Cart();
-        }
-        User user = null;
-        Object a = session.getAttribute("account");
-        if (a != null && cart.getItems().size() > 0) {
-            user = (User) a;
-            OrderDAO odb = new OrderDAO();
-            String shipAddress = request.getParameter("province") + ", " + request.getParameter("district") + ", " + request.getParameter("ward") + ", " + request.getParameter("address");
-            odb.addOrder(user, cart, shipAddress);          
-            NotifyDAO nd = new NotifyDAO();
-            user.setNotifications(nd.getUserNotification(user.getUserID()));
-            session.removeAttribute("cart");
-            session.setAttribute("size", 0);
-            response.sendRedirect("loadpage");
-        } else {
-            response.sendRedirect("loadpage");
-        }
+    throws ServletException, IOException {
+        processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

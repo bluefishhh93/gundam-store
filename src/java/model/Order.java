@@ -21,10 +21,19 @@ public class Order {
     private Date orderDate;
     private Date shippedDate;
     private double totalMoney;
-
+    private String shipAddress;
+    
     public Order() {
     }
 
+    public Order(int orderID, Date orderDate, double totalMoney, String shipAddress) {
+        this.orderID = orderID;
+        this.orderDate = orderDate;
+        this.totalMoney = totalMoney;
+        this.shipAddress = shipAddress;
+    }
+
+    
     public Order(int orderID, int userID, Date orderDate, Date shippedDate, double totalMoney) {
         this.orderID = orderID;
         this.userID = userID;
@@ -88,9 +97,19 @@ public class Order {
     public double getTotalMoney() {
         return totalMoney;
     }
-
+    
+    
     public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
     }
 
+    public String getShipAddress() {
+        return shipAddress;
+    }
+
+    public void setShipAddress(String shipAddress) {
+        this.shipAddress = shipAddress;
+    }
+
+    
 }

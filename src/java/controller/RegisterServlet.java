@@ -21,8 +21,8 @@ import model.User;
  *
  * @author xuant
  */
-@WebServlet(name="RegisterServlett", urlPatterns={"/register"})
-public class RegisterServlett extends HttpServlet {
+@WebServlet(name="RegisterServlet", urlPatterns={"/register"})
+public class RegisterServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,10 +39,10 @@ public class RegisterServlett extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlett</title>");  
+            out.println("<title>Servlet RegisterServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlett at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +59,47 @@ public class RegisterServlett extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        ArrayList<String> messages = new ArrayList<String>();
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String password = request.getParameter("pass");
+        String confirmPassword = request.getParameter("cpass");
+        String email = request.getParameter("email");
+
+        String phoneRegex = "/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/";
+        String passwordRegex = "^\\S{3,8}$";
+        Pattern patternPW = Pattern.compile(passwordRegex);
+        Pattern patternPhone = Pattern.compile(phoneRegex);
+        boolean checkPassword = patternPW.matcher(password).matches();
+        boolean checkPhone = patternPhone.matcher(phone).matches();
+
+        UserDAO ud = new UserDAO();
+        //Create account
+        User user = ud.getUserByEmail(email);
+        if (user != null) {          
+            messages.add("This email was registered!");
+            request.setAttribute("messages", messages);      
+            request.getRequestDispatcher("loadpage").forward(request, response);
+        }
+        //checking before create new account
+        if (!checkPhone || !checkPassword) {
+            if (!checkPhone) {
+                messages.add("Invalid phone");
+            }
+
+            if (!checkPassword) {
+                messages.add("Password length must be [3-8] and does not have space");
+            }
+            request.setAttribute("messages", messages);
+            request.getRequestDispatcher("loadpage").forward(request, response);
+        } else if (!password.equals(confirmPassword)) {
+            messages.add("Password do not match!");
+            request.setAttribute("messages", messages);
+            request.getRequestDispatcher("loadpage").forward(request, response);
+        }
+        
+        ud.Register(name, password, phone, email);
+        request.getRequestDispatcher("loadpage").forward(request, response);
     } 
 
     /** 
@@ -72,48 +112,6 @@ public class RegisterServlett extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        ArrayList<String> messages = new ArrayList<String>();
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        String password = request.getParameter("pass");
-        String confirmPassword = request.getParameter("cpass");
-        String email = request.getParameter("email");
-        
-        String phoneRegex = "/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/";
-        String passwordRegex = "^\\S{3,8}$";
-        Pattern patternPW = Pattern.compile(passwordRegex);
-        Pattern patternPhone = Pattern.compile(phoneRegex);
-        boolean checkPassword = patternPW.matcher(password).matches();
-        boolean checkPhone = patternPhone.matcher(phone).matches();
-        
-        //checking before create new account
-        if(!checkPhone||!checkPassword){
-            if(!checkPhone)
-                messages.add("Invalid phone");
-            
-            if(!checkPassword)
-                messages.add("Password length must be [3-8] and does not have space");
-                     
-            request.setAttribute("messages", messages);
-            request.getRequestDispatcher("loadpage").forward(request, response);
-        }else if (!password.equals(confirmPassword)){ 
-                messages.add("Password do not match!");
-                request.setAttribute("messages", messages);
-                request.getRequestDispatcher("loadpage").forward(request, response);
-        }
-        UserDAO ud = new UserDAO();
-        //Create account
-        User user = ud.getUserByEmail(email);
-        if (user == null) {                      
-            ud.Register(name, password, phone, email);
-            messages.add("Register successful!");
-            request.setAttribute("messages", messages);
-            request.getRequestDispatcher("loadpage").forward(request, response);
-        } else {
-            messages.add("You already have account!");
-            request.setAttribute("messages", messages);
-            request.getRequestDispatcher("loadpage").forward(request, response);
-        }
         
     }
 

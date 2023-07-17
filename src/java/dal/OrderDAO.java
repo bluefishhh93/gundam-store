@@ -7,10 +7,13 @@ package dal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import model.Cart;
 import model.Item;
+import model.Order;
 import model.User;
 
 /**
@@ -36,10 +39,10 @@ public class OrderDAO extends DBcontext {
             String sql1 = "SELECT TOP 1 OrderID FROM [Orders] ORDER BY OrderID DESC";
             PreparedStatement st1 = connection.prepareStatement(sql1);
             ResultSet rs = st1.executeQuery();
-
+            int orderId = 0;
             // Add into OrderDetails
             if (rs.next()) {
-                int orderId = rs.getInt(1);
+                orderId = rs.getInt(1);
                 for (Item i : cart.getItems()) {
                     String sql2 = "INSERT INTO [OrderDetails] (OrderID, ProductID, UnitPrice, Quantity) VALUES(?,?,?,?)";
                     PreparedStatement st2 = connection.prepareStatement(sql2);
@@ -57,8 +60,105 @@ public class OrderDAO extends DBcontext {
                     updateStockStmt.executeUpdate();
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            // Add notifycation
+            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 1)";
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, u.getUserID());
+            String message = "Đơn hàng " + orderId + " đang trog quá trình vận chuyển và sẽ được giao trong 3-5 ngày tới";
+            st2.setString(2, "Đang vận chuyển");
+            st2.setString(3, message);
+            st2.setDate(4, sqlDate);
+            st2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public List<Order> uncheckedOrders(int userID) {
+        String sql = "SELECT * FROM ORDERS WHERE OrderStatus = 0 ";
+        List<Order> list = new ArrayList<>();
+        if (userID != 0) {
+            sql += "AND userID =" + userID;
+        }
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(rs.getInt("OrderID"), rs.getDate("OrderDate"), rs.getDouble("TotalMoney"), rs.getString("ShipAddress"));
+                list.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public void acceptOrder(int userID, int orderID) {
+        java.util.Date currentDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+        String sql = "Update Orders SET OrderStatus = ?, ShippedDate = ? WHERE OrderID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, 1);
+            st.setDate(2, sqlDate);
+            st.setInt(3, orderID);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        try {
+            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 2)";
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, userID);
+            String message = "Đơn hàng " + orderID + " giao dịch thành công, cảm ơn bạn đã sử dụng phục vụ của GundamShop";
+            st2.setString(2, "Xác nhận đơn hàng");
+            st2.setString(3, message);
+            st2.setDate(4, sqlDate);
+            st2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void rejectOrder(int userID, int orderID) {
+        java.util.Date currentDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+        String sql1 = "SELECT * FROM OrderDetails WHERE OrderID = " + orderID;
+        try {
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            ResultSet rs = st1.executeQuery();
+            while (rs.next()) {
+                int productID = rs.getInt("ProductID");
+                int quantity = rs.getInt("quantity");
+                String sql2 = "UPDATE Products SET UnitsInStock = UnitsInStock + " + quantity + " WHERE ProductID = " + productID;
+                PreparedStatement st2 = connection.prepareStatement(sql2);
+                st2.executeUpdate();
+            }
+            String sql3 = "DELETE FROM OrderDetails WHERE OrderID = " + orderID;
+            PreparedStatement st3 = connection.prepareStatement(sql3);
+            st3.executeUpdate();
+
+            String sql4 = "Update Orders SET OrderStatus = 2 WHERE OrderID = " + orderID;
+            PreparedStatement st4 = connection.prepareStatement(sql4);
+            st4.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        try {
+            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 3)";
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, userID);
+            String message = "Bạn đã từ chối đơn hàng " + orderID + ", giao dịch không thành công";
+            st2.setString(2, "Xác nhận hủy đơn");
+            st2.setString(3, message);
+            st2.setDate(4, sqlDate);
+            st2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
     }
 
@@ -66,13 +166,15 @@ public class OrderDAO extends DBcontext {
         UserDAO ud = new UserDAO();
         ProductDAO pd = new ProductDAO();
         User user = ud.getUserByEmail("thanh@gmail.com");
-        Cart cart = new Cart();
-        ArrayList<Item> items = new ArrayList<>();
-        items.add(new Item(pd.getProductByID(1), 2, pd.getProductByID(1).getPrice()));
-        items.add(new Item(pd.getProductByID(2), 1, pd.getProductByID(1).getPrice()));
-        cart.setItems(items);
-        
+//        Cart cart = new Cart();
+//        ArrayList<Item> items = new ArrayList<>();
+//        items.add(new Item(pd.getProductByID(1), 2, pd.getProductByID(1).getPrice()));
+//        items.add(new Item(pd.getProductByID(2), 1, pd.getProductByID(1).getPrice()));
+//        cart.setItems(items);
+//        
         OrderDAO od = new OrderDAO();
-        od.addOrder(user, cart, "hongkong macau");
+//        System.out.println(od.uncheckedOrders(1).get(0).getTotalMoney());
+//        od.addOrder(user, cart, "hongkong macau");
+        od.acceptOrder(1, 29);
     }
 }

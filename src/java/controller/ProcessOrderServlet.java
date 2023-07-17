@@ -14,15 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Cart;
 import model.User;
 
 /**
  *
  * @author xuant
  */
-@WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
-public class CheckoutServlet extends HttpServlet {
+@WebServlet(name = "ProcessOrderServlet", urlPatterns = {"/processorder"})
+public class ProcessOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +40,10 @@ public class CheckoutServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckoutServlet</title>");
+            out.println("<title>Servlet ProcessOrderServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProcessOrderServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +61,29 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        String oid = request.getParameter("id");
+        String uid = request.getParameter("uid");
+        OrderDAO od = new OrderDAO();
+        int orderID, userID;
+
+        try {
+            orderID = Integer.parseInt(oid);
+            userID = Integer.parseInt(uid);
+            if (action.equals("accept")) {
+                od.acceptOrder(userID, orderID);
+            } else if (action.equals("reject")) {
+                od.rejectOrder(userID, orderID);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        HttpSession session = request.getSession();
+        
+        User user = (User) session.getAttribute("account");
+        NotifyDAO nd = new NotifyDAO();
+        user.setNotifications(nd.getUserNotification(user.getUserID()));
+        response.sendRedirect("myaccount");
     }
 
     /**
@@ -76,29 +97,7 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Cart cart = null;
-        Object o = session.getAttribute("cart");
-        if (o != null) {
-            cart = (Cart) o;
-        } else {
-            cart = new Cart();
-        }
-        User user = null;
-        Object a = session.getAttribute("account");
-        if (a != null && cart.getItems().size() > 0) {
-            user = (User) a;
-            OrderDAO odb = new OrderDAO();
-            String shipAddress = request.getParameter("province") + ", " + request.getParameter("district") + ", " + request.getParameter("ward") + ", " + request.getParameter("address");
-            odb.addOrder(user, cart, shipAddress);          
-            NotifyDAO nd = new NotifyDAO();
-            user.setNotifications(nd.getUserNotification(user.getUserID()));
-            session.removeAttribute("cart");
-            session.setAttribute("size", 0);
-            response.sendRedirect("loadpage");
-        } else {
-            response.sendRedirect("loadpage");
-        }
+        processRequest(request, response);
     }
 
     /**

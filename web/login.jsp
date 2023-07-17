@@ -17,13 +17,13 @@
         </div>
         <div class="auth-form__form">
             <form name="loginform" action="login" method="GET">
-            <div class="auth-form__group">
-                <input type="text" class="auth-form__input" placeholder="Nhập email của bạn" name="email">
-            </div>
-            <div class="auth-form__group">
-                <input type="password" class="auth-form__input" placeholder="Nhập mật khẩu của bạn" name="pass">
-            </div>
-           
+                <div class="auth-form__group">
+                    <input type="text" class="auth-form__input" placeholder="Nhập email của bạn" name="email">
+                </div>
+                <div class="auth-form__group">
+                    <input type="password" class="auth-form__input" placeholder="Nhập mật khẩu của bạn" name="pass">
+                </div>
+
         </div>
         <div class="auth-form__aside">
             <div class="auth-form__help">
@@ -31,12 +31,13 @@
                 <span class="auth-form__help-separate"></span>
                 <a href="" class="auth-form__help-link">Cần trợ giúp</a>
             </div>
+            <p style="color: red; font-size: 1.5rem">${requestScope.error}</p>
         </div>
         <div class="auth-form__controls">
-            <button class="btn btn--normal">TRỞ LẠI</button>
+            <button type="button"class="btn btn--normal">TRỞ LẠI</button>
             <button type="submit" class="btn btn--primary">ĐĂNG NHẬP</button>
         </div>
-         </form>
+        </form>
     </div>
     <div class="auth-form__socials">
         <a href="" class=" auth-form__socials-facebook btn btn--size-s btn--with-icon">

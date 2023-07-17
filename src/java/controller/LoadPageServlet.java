@@ -5,6 +5,7 @@
 package controller;
 
 import dal.CategoryDAO;
+import dal.NotifyDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,12 +83,12 @@ public class LoadPageServlet extends HttpServlet {
         //get all category to display in index.jsp
         List<Category> categoryList = cd.getAllCategory();
         request.setAttribute("categoryList", categoryList);
-
+        ArrayList<String> registernotify = (ArrayList<String>) request.getAttribute("messages");
+        String loginerror = (String) request.getAttribute("error");
         //set data in home-product.jsp
         request.setAttribute("data", productList);
 
         HttpSession session = request.getSession();
-
         // Access and manipulate session attributes as needed
 //        User attributeValue = (User) session.getAttribute("account");
 //        session.setAttribute("account", attributeValue);
