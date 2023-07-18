@@ -162,6 +162,43 @@ public class OrderDAO extends DBcontext {
         }
     }
 
+    public List<Order> checkedOrdersToDay() {
+        String sql = "SELECT * FROM ORDERS WHERE OrderStatus = 1 AND CAST(ShippedDate AS DATE) = CAST(GETDATE() AS DATE);";
+        List<Order> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(rs.getInt("OrderID"), rs.getInt("UserID"), rs.getDate("OrderDate"), rs.getDate("ShippedDate"), rs.getDouble("TotalMoney"), rs.getString("ShipAddress"));
+                list.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+
+    public int getNumberOfOrderByID(int userID) {
+       String sql = "SELECT COUNT(OrderID) AS Orders\n"
+                + "FROM Orders\n"
+                + "WHERE UserID = ?";
+        int quantity = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userID); // set the parameter value
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                quantity = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        
+        return quantity;
+        
+    }
+
     public static void main(String[] args) {
         UserDAO ud = new UserDAO();
         ProductDAO pd = new ProductDAO();
@@ -175,6 +212,7 @@ public class OrderDAO extends DBcontext {
         OrderDAO od = new OrderDAO();
 //        System.out.println(od.uncheckedOrders(1).get(0).getTotalMoney());
 //        od.addOrder(user, cart, "hongkong macau");
-        od.acceptOrder(1, 29);
+//        od.acceptOrder(1, 29);
+System.out.println(od.getNumberOfOrderByID(2));
     }
 }

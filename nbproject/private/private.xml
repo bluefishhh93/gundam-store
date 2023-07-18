@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="web_project">
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/model/User.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/controller/MyAccountServlet.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/dal/OrderDAO.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/controller/NotificationServlet.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/dal/NotifyDAO.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/controller/ProcessOrderServlet.java</file>
+            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/web/register.jsp</file>
+            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/web/user.jsp</file>
             <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/dal/UserDAO.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/model/Order.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/model/Notification.java</file>
-            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/web/useraccount.jsp</file>
+            <file>file:/D:/FPT/SUMMER_2023/PRJ301/web_project/TestGui2/src/java/controller/RegisterServlet.java</file>
         </group>
     </open-files>
 </project-private>

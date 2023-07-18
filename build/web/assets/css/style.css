@@ -1,0 +1,383 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 18, 2023, 2:54:26 AM
+    Author     : xuant
+*/
+html{
+    /* font-size: 100%; */
+    font-size: 62.5%;
+    /* gia tri nay de chuyen 1 rem = 10px 
+    mac dinh 100% la 16px*/
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+*{
+    box-sizing: inherit;
+    /* vi du thang cha co border-box thi con sde co 
+    border-box neu khong thi mac dinh la content-box */
+}
+
+
+.grid{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+    /* khi thu nho man hinh thi kich thuoc 1200 se
+     giam di va bang 100% man hinh dc thu nho */
+}
+
+.grid__full-width{
+    width: 100%;
+}
+
+.grid__row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.grid__col-2{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6667%;
+}
+.grid__col-2-4{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+
+
+
+.grid__col-6{
+    padding-left: 5px;
+    padding-right: 20px;
+    width: 50%;
+}
+
+.grid__col-10{
+    padding-right: 5px;
+    width: 83.3334%;
+}
+/* Dashboard Sidebar */
+
+/* Set the font family and background color for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  /* Style the dashboard container */
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* Style the dashboard sidebar */
+  .dashboard-sidebar {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(0, rgb(113, 144, 200), rgb(40, 97, 204));
+    height: 100vh;
+
+  }
+
+  a{
+    text-decoration: none;
+    color: #333;
+  }
+  
+  /* Style the dashboard profile */
+  .dashboard-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: .1px solid rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Style the profile avatar */
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    
+  }
+  
+  /* Style the profile avatar image */
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Style the profile name */
+  .dashboard-profile h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 3rem;
+  }
+  
+  /* Style the profile notification */
+  .profile-notify {
+    margin: 0;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  /* Style the dashboard navigation */
+  .dashboard-navigation {
+    margin-top: auto;
+  }
+  
+  /* Style the navigation list */
+  .navigation-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style the navigation item */
+  .navigation-item {
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Style the dashboard content */
+  .dashboard-content {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  
+
+  .navigation-item i {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+
+  /* Dashboard Information */
+.logout{
+    background-image: linear-gradient(to left, rgb(113, 144, 200), rgb(40, 97, 204));    padding: 20px 0;
+    margin: 0;
+    text-align: right;
+}
+
+.logout i {
+    margin-right: 20px;
+    font-size: 2rem;
+    color: #333;
+    background-color: yellow;
+    padding: 10px;
+    cursor: pointer;   
+    border-radius: 5px;
+}
+
+.title{
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-left: 10px;
+  border-left: 5px solid yellow;
+  padding: 10px;
+  /* box shadow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+}
+
+  .information {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    background-color: #f2f2f2;
+  }
+  
+  .information__item {
+    width: calc(50% - 30px);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    /* justify-content: space-around; */
+  }
+
+  .information__item i{
+    font-size: 3rem;
+    padding: 40px;
+    vertical-align: middle;
+    margin-right: 20px;
+    border-radius: 5px;
+    /* background-color: rgb(238, 109, 109) */
+  }
+
+  
+  
+  .information__item h2 {
+    color: red;
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .information__item h3 {
+    /* margin: 10px 0; */
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  .information__item p {
+    margin: 0;
+    font-size: 16px;
+    color: #999;
+  }
+/* Customer today table */
+  .customer-today{
+    margin-left: 10px;
+    font-size: 1.4rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: #ddd;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+
+
+.customer-today h1{
+  border-bottom: 0.8px rgb(225, 197, 10) solid;
+  padding-bottom: 10px;
+}
+
+.customer-today table tr:nth-child(n+2) td:last-child {
+  background-color: rgb(169, 245, 169); color: green;
+}
+  /*----------------------------Order List------------------------------  */
+.order-list{
+    margin-left: 10px;
+    font-size: 1.4rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  float: right;
+  margin: 20px 0px;
+}
+
+.search input[type="text"] {
+  width: 150px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.search button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.search button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+/* -----------------------User List------------------- */
+
+.user-list{
+  margin-left: 10px;
+  font-size: 1.4rem;
+}
+
+.user-list table tr td i {
+  background-color:  rgb(238, 109, 109); color: red;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* --------------------product-list-------------------- */
+.product-list{
+  margin-left: 10px;
+  font-size: 1.4rem;
+}
+
+.product-list table tr td img {
+  width: 150px;
+  height: 100px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.product-list table tr td {
+  text-align: center;
+}
+
+.product-list table .fas{
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-list table .fas:first-child {
+  background-color: rgb(238, 109, 109);
+  color: red;
+}
+
+.product-list table .fas:nth-child(2) {
+  background-color: rgb(245, 212, 152);
+  color: orange;
+}
+
+.navigation-list li {
+  transition: color 1s ease-in-out;
+}
+
+.navigation-list li:hover {
+  color: #ccc;
+  transform: translateX(5px);
+}
+.navigation-list a:hover {
+  color: #ccc;
+}

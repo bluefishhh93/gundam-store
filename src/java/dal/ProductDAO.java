@@ -28,6 +28,7 @@ public class ProductDAO extends DBcontext {
                 + "      ,[price]\n"
                 + "      ,[UnitsInStock]\n"
                 + "      ,[Brand]\n"
+                + "      ,[ProductDetail]\n"
                 + "  FROM [dbo].[products]\n"
                 + "  WHERE 1 = 1";
         if (cid != 0) {
@@ -43,10 +44,13 @@ public class ProductDAO extends DBcontext {
                 double price = rs.getDouble("price");
                 int unitInStock = rs.getInt("UnitsInStock");
                 String brand = rs.getString("Brand");
+                String productDetailString = rs.getString("ProductDetail");
                 Category category = cd.getCategoryById(categoryID);
                 Product p = new Product(id, productName, category, price, unitInStock, brand);
                 p.setImages(getProductImages(id));
-
+                String[] parts = productDetailString.split("\\.");
+                List<String> detailList = Arrays.asList(parts);
+                p.setProductDetails(detailList);
                 list.add(p);
             }
         } catch (SQLException e) {

@@ -16,7 +16,7 @@
     <ul class="header__navbar-user-menu">
         <li class="header__navbar-user-item"><a href="myaccount">Tài khoản của tôi</a></li>
         <c:if test="${sessionScope.account.isAdmin}">
-            <li class="header__navbar-user-item"><a href="#">Quản lý cửa hàng</a></li>
+            <li class="header__navbar-user-item"><a href="dashboardmanager">Quản lý cửa hàng</a></li>
         </c:if>
         <li class="header__navbar-user-item"><a href="logout">Đăng xuất</a></li>
     </ul>

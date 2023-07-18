@@ -93,6 +93,9 @@ public class User {
         return od.uncheckedOrders(userID);
     }
     
-    
+    public int getNumberOfOrder(){
+        OrderDAO od = new OrderDAO();
+        return od.getNumberOfOrderByID(userID);
+    }
 
 }
