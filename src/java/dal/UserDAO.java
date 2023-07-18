@@ -110,9 +110,24 @@ public class UserDAO extends DBcontext {
         return null;
     }
     
+     public int getNumberUser(){
+        String sql = "SELECT COUNT(*) FROM Users";
+        int number = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                number = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return number;
+    }
+    
 
     public static void main(String[] args) {
         UserDAO ud = new UserDAO();
-        System.out.println(ud.check("thanh@gmail.com", "123321").getUncheckOrder());
+//        System.out.println(ud.check("thanh@gmail.com", "123321").getUncheckOrder());
+        System.out.println(ud.getNumberUser());
     }
 }

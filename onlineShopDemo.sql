@@ -270,7 +270,7 @@ INSERT INTO ProductImages VALUES(25,'assets/img/gundammaker1.jpg')
 
 
 
-SELECT * FROM ORDERS
+SELECT * FROM ORDERS 
 SELECT * FROM OrderDetails
 SELECT * FROM Users
 delete from notifications  where notificationId = 1
@@ -283,7 +283,12 @@ SELECT * FROM ProductImages
 SELECT SUM(Quantity) AS TotalQuantitySold
 FROM OrderDetails
 WHERE ProductID = 1;
+SELECT * FROM ORDERS WHERE OrderStatus = 1 AND CAST(ShippedDate AS DATE) = CAST(GETDATE() AS DATE);
 
+SELECT COUNT(*) FROM Users
+SELECT COUNT(*) FROM ORDERS
+SELECT COUNT(*) FROM Products
+SELECT COUNT(*) FROM Products WHERE [UnitsInStock] <= 5
 
 
 SELECT * FROM Products ORDER BY ProductID DESC;

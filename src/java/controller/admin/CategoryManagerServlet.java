@@ -5,6 +5,7 @@
 
 package controller.admin;
 
+import dal.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Category;
 
 /**
  *
@@ -55,7 +58,10 @@ public class CategoryManagerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        CategoryDAO cd = new CategoryDAO();
+        List<Category> categories = cd.getAllCategory();
+        request.setAttribute("categories", categories);
+        request.getRequestDispatcher("AdminCategory.jsp").forward(request, response);
     } 
 
     /** 

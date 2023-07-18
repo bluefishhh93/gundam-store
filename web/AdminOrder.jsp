@@ -25,25 +25,23 @@
                 <th>Ngày mua</th>
                 <th>Tổng tiền</th>
                 <th>Trạng thái</th>
+                <th>Tính năng</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Mai Lê</td>
-                <td>0134245345</td>
-                <td>Da Nang</td>
-                <td>2023-02-02</td>
-                <td>520.000$</td>
-                <td>Đã hoàn thành</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Thanh Lê</td>
-                <td>0134245345</td>
-                <td>Quang Nam</td>
-                <td>2023-02-02</td>
-                <td>780.000$</td>
-                <td>Đã hoàn thành</td>
-            </tr>
+            <c:forEach items="${requestScope.uncheckedlist}" var="order">
+                <tr>
+                    <td>${order.orderID}</td>
+                    <td>${order.userID}</td>
+                    <td>${order.orderDate}</td>
+                    <td>${order.shipAddress}</td>
+                    <td>${order.shippedDate}</td>
+                    <td><fmt:formatNumber type="number" groupingUsed="true" value="${order.totalMoney}"/> đ</td>
+                    <td>Đang vận chuyển</td>
+                    <td>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-edit"></i>
+                    </td>
+                </tr>
+            </c:forEach>
 
         </table>
     </div>

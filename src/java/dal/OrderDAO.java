@@ -198,6 +198,20 @@ public class OrderDAO extends DBcontext {
         return quantity;
         
     }
+    
+    public int getNumberOrder(){
+        String sql = "SELECT COUNT(*) FROM Orders WHERE OrderStatus = 1";
+        int number = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                number = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return number;
+    }
 
     public static void main(String[] args) {
         UserDAO ud = new UserDAO();
@@ -213,6 +227,6 @@ public class OrderDAO extends DBcontext {
 //        System.out.println(od.uncheckedOrders(1).get(0).getTotalMoney());
 //        od.addOrder(user, cart, "hongkong macau");
 //        od.acceptOrder(1, 29);
-System.out.println(od.getNumberOfOrderByID(2));
+System.out.println(od.getNumberOrder());
     }
 }

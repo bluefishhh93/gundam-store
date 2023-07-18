@@ -172,6 +172,33 @@ public class ProductDAO extends DBcontext {
 
     }
     
+    public int getNumberProduct(){
+        String sql = "SELECT COUNT(*) FROM Products";
+        int number = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                number = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return number;
+    }
+   
+    public int getNumberOutOfStock(){
+        String sql = "SELECT COUNT(*) FROM Products WHERE [UnitsInStock] <= 5";
+        int number = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                number = rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return number;
+    }
    
 
     public static void main(String[] args) {

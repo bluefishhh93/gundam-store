@@ -23,15 +23,17 @@
                 <th>Hình ảnh</th>
                 <th>Tính năng</th>                                  
             </tr>
-            <tr>
-                <td>1</td>
-                <td>RG</td>
-                <td><img src="../assets/img/HGlogo.jpg" alt=""></td>
-                <td>
-                    <i class="fas fa-trash-alt"></i>
-                    <i class="fas fa-edit"></i>
-                </td>
-
+            <c:forEach items="${requestScope.categories}" var="category">
+                <tr>
+                    <td>${category.id}</td>
+                    <td>${category.name}</td>
+                    <td><img src="${category.image}" alt=""></td>
+                    <td>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-edit"></i>
+                    </td>
+                </tr>    
+            </c:forEach>
 
         </table>
     </div>

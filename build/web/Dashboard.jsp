@@ -16,7 +16,7 @@
             <i class="fas fa-users"  style="background-color: rgb(169, 245, 169); color: green;"></i>
             <div class="information__item-content">
                 <h2>Tổng khách hàng</h2>
-                <h3>5 khách hàng</h3>
+                <h3>${requestScope.customerNum} khách hàng</h3>
                 <p>Tổng số khách hàng được quản lý</p>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <i class="fas fa-coins" style="background-color:  rgb(91, 176, 241); color: blue;"></i>
             <div class="information__item-content">
                 <h2>Tổng sản phẩm</h2>
-                <h3>13 sản phẩm</h3>
+                <h3>${requestScope.productNum} sản phẩm</h3>
                 <p>Tổng số sản phẩm được quản lý</p>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <i class="fab fa-shopify" style="background-color: rgb(245, 212, 152); color: orange;"></i>
             <div class="information__item-content">
                 <h2>Tổng đơn hàng</h2>
-                <h3>14 đơn hàng</h3>
+                <h3>${requestScope.orderNum} đơn hàng</h3>
                 <p>Tổng số đơn hàng được quản lý</p>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <i class="fas fa-exclamation-triangle" style="background-color:  rgb(238, 109, 109); color: red;"></i>
             <div class="information__item-content">
                 <h2>Sắp hết hàng</h2>
-                <h3>1 sản phẩm</h3>
+                <h3>${requestScope.outOfStockNum} sản phẩm</h3>
                 <p>Tổng số sản phẩm được quản lý</p>
             </div>
         </div>

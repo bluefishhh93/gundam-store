@@ -6,6 +6,8 @@
 package controller.admin;
 
 import dal.OrderDAO;
+import dal.ProductDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -59,8 +61,20 @@ public class DashboardManagerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         OrderDAO od = new OrderDAO();
+        UserDAO ud = new UserDAO();
+        ProductDAO pd = new ProductDAO();
+        
         List<Order> checkedOrderList = od.checkedOrdersToDay();
+        int customerNum = ud.getNumberUser();
+        int productNum = pd.getNumberProduct();
+        int orderNum = od.getNumberOrder();
+        int outOfStockNum = pd.getNumberOutOfStock();
         request.setAttribute("checkedlist", checkedOrderList);
+        request.setAttribute("customerNum", customerNum);
+        request.setAttribute("productNum", productNum);
+        request.setAttribute("orderNum", orderNum);
+        request.setAttribute("outOfStockNum", outOfStockNum);
+        
         request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
     } 
 
