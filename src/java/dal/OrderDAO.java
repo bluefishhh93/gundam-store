@@ -85,7 +85,7 @@ public class OrderDAO extends DBcontext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Order order = new Order(rs.getInt("OrderID"), rs.getDate("OrderDate"), rs.getDouble("TotalMoney"), rs.getString("ShipAddress"));
+                Order order = new Order(rs.getInt("OrderID"), rs.getInt("UserID"), rs.getDate("OrderDate"), rs.getDouble("TotalMoney"), rs.getString("ShipAddress"));
                 list.add(order);
             }
         } catch (SQLException e) {

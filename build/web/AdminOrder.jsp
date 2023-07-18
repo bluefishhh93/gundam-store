@@ -19,8 +19,7 @@
         <table>
             <tr>
                 <th>ID đơn hàng</th>
-                <th>Khách hàng</th>
-                <th>Số điện thoại</th>
+                <th>ID Khách hàng</th>
                 <th>Địa chỉ</th>
                 <th>Ngày mua</th>
                 <th>Tổng tiền</th>
@@ -31,9 +30,8 @@
                 <tr>
                     <td>${order.orderID}</td>
                     <td>${order.userID}</td>
-                    <td>${order.orderDate}</td>
                     <td>${order.shipAddress}</td>
-                    <td>${order.shippedDate}</td>
+                    <td>${order.orderDate}</td>
                     <td><fmt:formatNumber type="number" groupingUsed="true" value="${order.totalMoney}"/> đ</td>
                     <td>Đang vận chuyển</td>
                     <td>

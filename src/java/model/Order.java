@@ -41,6 +41,13 @@ public class Order {
         this.shippedDate = shippedDate;
         this.totalMoney = totalMoney;
     }
+    public Order(int orderID, int userID, Date orderDate, double totalMoney, String shipAddress) {
+        this.orderID = orderID;
+        this.userID = userID;
+        this.orderDate = orderDate;
+        this.shipAddress = shipAddress;
+        this.totalMoney = totalMoney;
+    }
 
     public Order(int orderID, int userID, Date orderDate, Date shippedDate, double totalMoney, String shipAddress) {
         this.orderID = orderID;
