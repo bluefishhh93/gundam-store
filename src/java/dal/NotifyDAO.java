@@ -30,7 +30,8 @@ public class NotifyDAO extends DBcontext{
                 String message = rs.getString("Message");
                 Date createAt = rs.getDate("CreatedAt");
                 int type = rs.getInt("type");
-                Notification notify = new Notification(notificationID, userID, title, message, createAt ,type);
+                int orderId = rs.getInt("OrderID");
+                Notification notify = new Notification(notificationID, userID, title, message, createAt ,type, orderId);
                 list.add(notify);
             }
         } catch (SQLException e) {
@@ -48,8 +49,16 @@ public class NotifyDAO extends DBcontext{
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
-        
+    }
+    
+    public void removeFeedbackedNotify(int OrderId){
+        String sql = "DELETE FROM Notifications WHERE OrderID = " + OrderId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
     public static void main(String[] args) {
         NotifyDAO nd = new NotifyDAO();

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="AdminHeader.jsp" %>   
 <div class="grid__col-10 dashboard-content">
-    <div class="logout"><i class="fas fa-sign-out"></i></div>
+    <div class="logout"><a href="loadpage"><i class="fas fa-sign-out"></i></a></div>
     <div class="title">Danh sách sản phẩm</div>               
     <style>
         .home-product__pagination {
@@ -16,9 +16,30 @@
             justify-content: center; /* Horizontally center the items */
             align-items: center;
         }
+        li{
+            cursor: pointer;
+            margin-right: 20px;
+            font-size: 2rem;
+        }
+        li:hover .pagination-item__link{
+            color: rgb(79, 123, 204);
+            
+        }
 
+        .product-list table .fas:first-child {
+/*            background-color: rgb(238, 109, 109);
+            color: red;*/
+            border-radius: 2px;
+            margin-bottom: 15px;
+            border-radius: 2px;
+            
+        }
 
-
+        .product-list table .fas:nth-child(2) {
+/*            background-color: rgb(169, 245, 169);
+            color: green;*/
+           
+        }
 
     </style>
 
@@ -48,8 +69,8 @@
                     <td>4</td>
                     <td><img src="${product.images.get(0)}" alt=""></td>
                     <td>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-edit"></i>
+                        <a class="product-link" href="url"><i class="fas fa-trash-alt"></i></a>
+                        <a class="product-link" href="url"><i class="fas fa-edit"></i></a>                 
                     </td>
                 </tr>
             </c:forEach>             

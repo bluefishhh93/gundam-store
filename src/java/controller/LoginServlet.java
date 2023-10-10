@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
         if (u == null) {
             //khong tim thay
             request.setAttribute("error", "username or password invalid!");
-            request.getRequestDispatcher("loadpage").forward(request, response);
+            request.getRequestDispatcher("login").forward(request, response);
 
         } else {
             HttpSession session = request.getSession();

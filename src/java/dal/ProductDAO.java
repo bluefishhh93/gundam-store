@@ -161,7 +161,8 @@ public class ProductDAO extends DBcontext {
                 String[] parts = productDetailString.split("\\.");
                 List<String> list = Arrays.asList(parts);
                 p.setProductDetails(list);
-                
+                FeedbackDAO fd = new FeedbackDAO();
+                p.setFeedbacks(fd.getFeedbackByProductId(id));
                 return p;
             }
         } catch (SQLException e) {
@@ -199,6 +200,29 @@ public class ProductDAO extends DBcontext {
         }
         return number;
     }
+    
+        
+    public List<Product> getProductsForOrder(int orderId){
+        String sql = "SELECT ProductID from OrderDetails WHERE orderID = ?";
+        List<Integer> productIds = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                productIds.add(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        List<Product> Products = new ArrayList<>();
+        ProductDAO pd = new ProductDAO();
+        for(Integer id : productIds){
+            Products.add(pd.getProductByID(id));
+        }
+        return Products;
+    }    
+
    
 
     public static void main(String[] args) {
@@ -209,6 +233,7 @@ public class ProductDAO extends DBcontext {
                     + "GROUP BY Products.ProductID, Products.ProductName, Products.CategoryID, Products.Price, Products.UnitsInStock, Products.Brand\n"
                     + "ORDER BY TotalQuantitySold DESC;";;
 //        System.out.println(pd.getProductByFilter(sql));
-        System.out.println(pd.getProductByFilter(sql));
+//        System.out.println(pd.getProductByFilter(sql));
+        System.out.println(pd.getProductsForOrder(48));;
     }
 }

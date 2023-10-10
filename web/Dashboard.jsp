@@ -9,7 +9,7 @@
 
 <!-- AdminDashboard.jsp -->
 <div class="grid__col-10 dashboard-content">
-    <div class="logout"><i class="fas fa-sign-out"></i></div>
+    <div class="logout"><a href="loadpage"><i class="fas fa-sign-out"></i></a></div>
     <div class="title">Bảng điều khiển</div>               
     <div class="information">
         <div class="information__item">

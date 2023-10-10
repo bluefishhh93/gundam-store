@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="AdminHeader.jsp" %>   
 <div class="grid__col-10 dashboard-content">
-    <div class="logout"><i class="fas fa-sign-out"></i></div>
+    <div class="logout"><a href="loadpage"><i class="fas fa-sign-out"></i></a></div>
     <div class="title">Danh sách khách hàng</div>               
 
 
@@ -27,13 +27,17 @@
             </tr>
             <c:forEach items="${requestScope.userlist}" var="user">
                 <tr>
-                <td>${user.userID}</td>
-                <td>${user.name}</td>
-                <td>${user.email}</td>
-                <td>${user.getNumberOfOrder()}</td>
-                <td>${user.isAdmin}</td>
-                <td><a><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
+                    <td>${user.userID}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.getNumberOfOrder()}</td>
+                    <td>${user.isAdmin}</td>
+                    <td>
+                        <a href="disableUser?${user.userID}"><i class="fas fa-user-slash"></i></a>             
+                        <a href="giftVoucher?${user.userID}"><i class="fas fa-tags"></i></a>                      
+                    </td>
+
+                </tr>
             </c:forEach>
 
         </table>

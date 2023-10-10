@@ -127,18 +127,22 @@ public class ProcessCartServlet extends HttpServlet {
                 List<Item> list = cart.getItems();
                 session.setAttribute("cart", cart);
                 session.setAttribute("size", list.size());
-                response.sendRedirect("checkout.jsp");
+//                response.sendRedirect("checkout.jsp");
             } else {
                 id = Integer.parseInt(tidHome);
                 cart.removeItem(id);
                 List<Item> list = cart.getItems();
                 session.setAttribute("cart", cart);
                 session.setAttribute("size", list.size());
-                response.sendRedirect("loadpage");
+//                response.sendRedirect("loadpage");
             }
         } catch (Exception e) {
         }
- 
+        String referer = request.getHeader("referer");
+        if (referer != null) {
+            response.sendRedirect(referer);
+        }
+
     }
 
     /**

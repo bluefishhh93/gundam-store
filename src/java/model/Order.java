@@ -22,7 +22,7 @@ public class Order {
     private Date shippedDate;
     private double totalMoney;
     private String shipAddress;
-    
+
     public Order() {
     }
 
@@ -33,7 +33,6 @@ public class Order {
         this.shipAddress = shipAddress;
     }
 
-    
     public Order(int orderID, int userID, Date orderDate, Date shippedDate, double totalMoney) {
         this.orderID = orderID;
         this.userID = userID;
@@ -41,6 +40,7 @@ public class Order {
         this.shippedDate = shippedDate;
         this.totalMoney = totalMoney;
     }
+
     public Order(int orderID, int userID, Date orderDate, double totalMoney, String shipAddress) {
         this.orderID = orderID;
         this.userID = userID;
@@ -57,8 +57,6 @@ public class Order {
         this.totalMoney = totalMoney;
         this.shipAddress = shipAddress;
     }
-    
-    
 
     public int getOrderID() {
         return orderID;
@@ -104,7 +102,7 @@ public class Order {
     }
 
     public void setShippedDate(String shippedDate) {
-         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         try {
             this.shippedDate = new java.sql.Date(sd.parse(shippedDate).getTime());
         } catch (ParseException ex) {
@@ -112,11 +110,14 @@ public class Order {
         }
     }
 
+    public void setShippedDate(Date shippedDate) {
+        this.shippedDate = new java.sql.Date(shippedDate.getTime());
+    }
+
     public double getTotalMoney() {
         return totalMoney;
     }
-    
-    
+
     public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
     }
@@ -129,5 +130,4 @@ public class Order {
         this.shipAddress = shipAddress;
     }
 
-    
 }

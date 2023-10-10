@@ -5,6 +5,7 @@
 package model;
 
 import dal.OrderDAO;
+import dal.ProductDAO;
 import java.util.List;
 
 /**
@@ -97,5 +98,20 @@ public class User {
         OrderDAO od = new OrderDAO();
         return od.getNumberOfOrderByID(userID);
     }
+    
+    
+    //return unfeedbacked orders
+    public List<Order> getUnfeedbackedOrder(){
+        OrderDAO od = new OrderDAO();
+        return od.getUnFeedbackList(userID);
+    }
+    
+    //return product from unfeedbacked order by unfeedbacked order id
+    public List<Product> getUnfeedbackedProduct(int orderId){
+        ProductDAO pd = new ProductDAO();
+        return  pd.getProductsForOrder(orderId);
+    }
+    
+    
 
 }

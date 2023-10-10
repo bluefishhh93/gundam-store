@@ -14,6 +14,7 @@ import java.util.List;
 import model.Cart;
 import model.Item;
 import model.Order;
+import model.Product;
 import model.User;
 
 /**
@@ -27,7 +28,7 @@ public class OrderDAO extends DBcontext {
         java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
         try {
             // Add into Order table
-            String sql = "INSERT INTO [Orders] (UserID, [OrderDate], [ShipAddress], [TotalMoney] , [OrderStatus]) VALUES(?,?,?,?,0)";
+            String sql = "INSERT INTO [Orders] (UserID, [OrderDate], [ShipAddress], [TotalMoney] , [OrderStatus] , [isFeedbacked]) VALUES(?,?,?,?,0,0)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, u.getUserID());
             st.setDate(2, sqlDate);
@@ -62,13 +63,14 @@ public class OrderDAO extends DBcontext {
             }
 
             // Add notifycation
-            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 1)";
+            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 1, ?)";
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, u.getUserID());
             String message = "Đơn hàng " + orderId + " đang trog quá trình vận chuyển và sẽ được giao trong 3-5 ngày tới";
             st2.setString(2, "Đang vận chuyển");
             st2.setString(3, message);
             st2.setDate(4, sqlDate);
+            st2.setInt(5, orderId);
             st2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -85,7 +87,7 @@ public class OrderDAO extends DBcontext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Order order = new Order(rs.getInt("OrderID"), rs.getInt("UserID"), rs.getDate("OrderDate"), rs.getDouble("TotalMoney"), rs.getString("ShipAddress"));
+                Order order = new Order(rs.getInt("OrderID"), rs.getDate("OrderDate"), rs.getDouble("TotalMoney"), rs.getString("ShipAddress"));
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -110,16 +112,30 @@ public class OrderDAO extends DBcontext {
         }
 
         try {
-            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 2)";
+            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 2, ?)";
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, userID);
             String message = "Đơn hàng " + orderID + " giao dịch thành công, cảm ơn bạn đã sử dụng phục vụ của GundamShop";
             st2.setString(2, "Xác nhận đơn hàng");
             st2.setString(3, message);
             st2.setDate(4, sqlDate);
+            st2.setInt(5, orderID);
             st2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+        }
+
+        try {
+            String sql3 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 4, ?)";
+            PreparedStatement st3 = connection.prepareStatement(sql3);
+            st3.setInt(1, userID);
+            String message = "Vui lòng đánh giá đơn hàng " + orderID + " để chia sẻ trải nghiệm của bạn về sản phẩm";
+            st3.setString(2, "Đánh giá đơn hàng");
+            st3.setString(3, message);
+            st3.setDate(4, sqlDate);
+            st3.setInt(5, orderID);
+            st3.executeUpdate();
+        } catch (Exception e) {
         }
     }
 
@@ -149,13 +165,16 @@ public class OrderDAO extends DBcontext {
             System.out.println(e);
         }
         try {
-            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 3)";
+
+            //dang thieu mot dau ? them vao di
+            String sql2 = "INSERT INTO [Notifications] values (?, ? ,?, ?, 3, ?)";
             PreparedStatement st2 = connection.prepareStatement(sql2);
             st2.setInt(1, userID);
             String message = "Bạn đã từ chối đơn hàng " + orderID + ", giao dịch không thành công";
             st2.setString(2, "Xác nhận hủy đơn");
             st2.setString(3, message);
             st2.setDate(4, sqlDate);
+            st2.setInt(5, orderID);
             st2.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -181,7 +200,7 @@ public class OrderDAO extends DBcontext {
     }
 
     public int getNumberOfOrderByID(int userID) {
-       String sql = "SELECT COUNT(OrderID) AS Orders\n"
+        String sql = "SELECT COUNT(OrderID) AS Orders\n"
                 + "FROM Orders\n"
                 + "WHERE UserID = ?";
         int quantity = 0;
@@ -189,23 +208,55 @@ public class OrderDAO extends DBcontext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, userID); // set the parameter value
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 quantity = rs.getInt(1);
             }
         } catch (Exception e) {
         }
-        
+
         return quantity;
-        
+
     }
-    
-    public int getNumberOrder(){
+
+    public List<Order> getUnFeedbackList(int userID) {
+        String sql = "SELECT * FROM ORDERS WHERE isFeedbacked = ? AND UserID = ? AND OrderStatus = ?";
+        List<Order> unFeedbackedList = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareCall(sql);
+            st.setInt(1, 0);
+            st.setInt(2, userID);
+            st.setInt(3, 1);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                //create new instance of order
+                Order order = new Order();
+
+                //get value from table order
+                int orderId = rs.getInt("OrderID");
+                int userid = rs.getInt("userId");
+                Date shippedDate = rs.getDate("ShippedDate");
+                //set member of order
+                order.setOrderID(orderId);
+                order.setUserID(userid);
+                order.setShippedDate(shippedDate);
+
+                //adding to unFeedbackedList
+                unFeedbackedList.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return unFeedbackedList;
+    }
+
+    public int getNumberOrder() {
         String sql = "SELECT COUNT(*) FROM Orders WHERE OrderStatus = 1";
         int number = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 number = rs.getInt(1);
             }
         } catch (Exception e) {
@@ -213,6 +264,39 @@ public class OrderDAO extends DBcontext {
         return number;
     }
 
+    public Order getOrderById(int orderId) {
+        String sql = "SELECT * FROM ORDERS WHERE OrderId = ?";
+        Order order = new Order();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                //create new instance of order
+                //get value from table order
+                int userid = rs.getInt("userId");
+                Date shippedDate = rs.getDate("ShippedDate");
+                //set member of order
+                order.setOrderID(orderId);
+                order.setUserID(userid);
+                order.setShippedDate(shippedDate);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return order;
+    }
+
+    public void setIsFeedbacked(int orderId){
+        String sql = "UPDATE Orders SET isFeedbacked = 1 WHERE OrderID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, orderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
     public static void main(String[] args) {
         UserDAO ud = new UserDAO();
         ProductDAO pd = new ProductDAO();
@@ -227,6 +311,6 @@ public class OrderDAO extends DBcontext {
 //        System.out.println(od.uncheckedOrders(1).get(0).getTotalMoney());
 //        od.addOrder(user, cart, "hongkong macau");
 //        od.acceptOrder(1, 29);
-System.out.println(od.getNumberOrder());
+        System.out.println(od.getNumberOrder());
     }
 }

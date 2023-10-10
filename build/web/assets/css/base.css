@@ -121,6 +121,10 @@ html{
     display: none;
     animation: fadeIn ease-in 0.3s;
 }
+.feedback-form{
+    display: none;
+}
+
 
 .login{
     display: none;

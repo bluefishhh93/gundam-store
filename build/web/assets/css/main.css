@@ -33,7 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .header__navbar-item{
     margin-left: 8px;
     position: relative;
-    min-height: 26px; 
+    min-height: 26px;
     /* neu la so le thi kieu gi cung lech 1 px */
 }
 
@@ -75,7 +75,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     right: 4px;
     top: -30px;
     border-width: 20px 27px;
-    border-color: transparent transparent var(--white-color) transparent; 
+    border-color: transparent transparent var(--white-color) transparent;
     border-style: solid;
 
 }
@@ -263,7 +263,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     right: 4px;
     top: -30px;
     border-width: 20px 27px;
-    border-color: transparent transparent var(--white-color) transparent; 
+    border-color: transparent transparent var(--white-color) transparent;
     border-style: solid;
     /* cai hinh tam giac */
 }
@@ -320,7 +320,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     /* object-fit: contain; */
     height: 44px;
     border-radius: 5px;
-     
+
 }
 .header__notify-info{
     margin-left: 12px;
@@ -331,14 +331,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-size: 14px;
     color: var(--black-color);
     margin-bottom: 5px;
-    
+
 }
 .header__notify-description{
-    display: block; 
-    font-size: 1.2rem; 
-    line-height: 1.5rem; 
-    color: #756f6e; 
-    
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    color: #756f6e;
+
 }
 .header__notify-footer{
     text-align: center;
@@ -573,7 +573,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .header__cart-item{
     display: flex;
     align-items: center;
-    
+
 }
 
 .header__cart-item:hover{
@@ -709,7 +709,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .header__search-input{
-    width: 100%; 
+    width: 100%;
     height: 100%;
     border: none;
     outline: none;
@@ -872,11 +872,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /* App container */
 .app__container{
     background-color: #f3f3f3;
-    
+
 }
 
 .app__content{
-    padding-top: 36px;  
+    padding-top: 36px;
 }
 
 .category{
@@ -964,7 +964,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     align-items: center;
     padding: 12px 22px;
     border-radius: 2px;
-    
+
 }
 
 .home-filter__label{
@@ -977,7 +977,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .home-filter__btn{
     margin-right: 12px;
     min-width: 90px;
-    background-color: var(--white-color); 
+    background-color: var(--white-color);
     transition: background-color ease 0.3s;
 }
 .home-filter__btn:hover{
@@ -1038,24 +1038,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 
 .home-product-item{
-   display: block;
-   text-decoration: none;
-   position: relative;
-   background-color: var(--white-color);
-   margin-top: 10px;
-   border-radius: 2px;
-   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-   transition: transform linear 0.1s;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    background-color: var(--white-color);
+    margin-top: 10px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+    transition: transform linear 0.1s;
 }
 
 .home-product-item:hover{
-   box-shadow: 0 1px 20px 0 rgba(0,0,0,0.05);
-   transform: translateY(-1px); 
+    box-shadow: 0 1px 20px 0 rgba(0,0,0,0.05);
+    transform: translateY(-1px);
 }
 
 .home-product-item__img{
     padding-top: 100%; /*tuong doi voi cai chua no*/
-    background-size: contain; 
+    background-size: contain;
     background-repeat: no-repeat;
     /* background-position: center;  dung khi anh qua dai*/
     border-bottom-left-radius: 2px;
@@ -1372,15 +1372,15 @@ input:focus{
 .single-product__rating {
     display: flex;
     align-items: center;
-  }
+}
 
-  .single-product__rating .fas.fa-star {
+.single-product__rating .fas.fa-star {
     font-size: 1rem;
-  }
+}
 
 
-  /* -------------------Cart-------------------- */
-  
+/* -------------------Cart-------------------- */
+
 .cart-page{
     margin: 20px auto;
     background-color: #fff;
@@ -1433,7 +1433,7 @@ td input[type="submit"]{
 td input[type="submit"]:hover{
     opacity: 0.8;
     transform: scale(1.05);
-    
+
 }
 
 td a{
@@ -1476,7 +1476,7 @@ form span {
     margin-right: 20px;
     font-weight: 700;
     color: var(--primary-color);
-  }
+}
 
 
 
@@ -1488,4 +1488,232 @@ form span {
     /* set readonly */
     /* pointer-events: none; */
     text-align: center;
+}
+
+
+
+/* -------------------------------------user-review---------------------- */
+.user-review{
+    margin-bottom: 10px;
+}
+.heading {
+    font-size: 25px;
+    margin-right: 25px;
+}
+
+.fa {
+    font-size: 25px;
+}
+
+.checked {
+    color: orange;
+}
+
+/* Three column layout */
+.side {
+    float: left;
+    width: 15%;
+    margin-top:10px;
+}
+
+.middle {
+    margin-top:10px;
+    float: left;
+    width: 70%;
+}
+
+/* Place text to the right */
+.right {
+    text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* The bar container */
+.bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+}
+
+/* Individual bars */
+.bar-5 {
+    /*width: 60%;*/
+    height: 18px;
+    background-color: #04AA6D;
+}
+.bar-4 {
+    /*width: 30%;*/
+    height: 18px;
+    background-color: #2196F3;
+}
+.bar-3 {
+    /*width: 10%;*/
+    height: 18px;
+    background-color: #00bcd4;
+}
+.bar-2 {
+    /*width: 4%;*/
+    height: 18px;
+    background-color: #ff9800;
+}
+.bar-1 {
+    /*width: 15%;*/
+    height: 18px;
+    background-color: #f44336;
+}
+/* ---------Comments */
+.comment {
+    /* display: flex; */
+    align-items: center;
+    gap: 10px;
+    border-bottom: #00bcd4 solid 1px;
+}
+
+.comment img {
+    border-radius: 50%;
+}
+
+.comment h4 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.comment span {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.comment p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+
+
+/* ---------------------------------------------------------------------- */
+.feedback-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the rating section */
+.rating-section {
+    margin-bottom: 10px;
+}
+
+/* Style for the feedback text */
+.feedback-text {
+    margin-bottom: 10px;
+}
+
+.feedback-text h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.feedback-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style for the product section */
+.product-section {
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.product-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Style for the select element */
+.product-rating {
+    font-size: 1.5rem;
+}
+
+/*-----------------------------MODAL FEEDBACK-----------------------*/
+.feedback-form{
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    display: none;
+}
+
+.feedback-product{
+    padding: 0;
+    position: relative;
+    display: flex;
+}
+
+.feedback-product__img{
+    margin-right: 15px;
+    max-width: 100px; /* Set a maximum width of 70px */
+    max-height: none; /* Reset any previous max-height setting */
+    width: auto; /* Allow the width to adjust based on aspect ratio */
+    height: auto; /* Allow the height to adjust based on aspect ratio */
+}
+
+.feedback-product span{
+    vertical-align: top;
+    margin-top: 15px;
+    position: absolute;
+}
+.rating-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.rating-form label {
+    font-weight: bold;
+}
+
+.rating-form select {
+    font-size: 12px;
+    width: 130px; /* Adjust the width as needed */
+}
+
+.auth-form__group textarea{
+    background-color: #f7f7f7;
+    height: 70px;
+    margin: 0;
+}
+
+.auth-form__heading{
+    margin: 0;
+    margin-top: 10px;
+}
+
+.feedback-product-info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+.feedback-product__name{
+    margin-right: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
 }

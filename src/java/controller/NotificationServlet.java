@@ -70,7 +70,10 @@ public class NotificationServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
-        request.getRequestDispatcher("loadpage").forward(request, response);
+        String referer = request.getHeader("referer");
+        if (referer != null) {
+            response.sendRedirect(referer);
+        }
     } 
 
     /** 

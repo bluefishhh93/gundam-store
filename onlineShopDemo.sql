@@ -1,4 +1,4 @@
-﻿DROP DATABASE ONLINESHOP_1
+﻿
 CREATE DATABASE ONLINESHOP_1
 USE ONLINESHOP_1
 
@@ -12,7 +12,6 @@ CREATE TABLE [dbo].[Users](
 	[isAdmin] bit NULL,
 CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED (UserID)
 )
-
 
 CREATE TABLE Categories(
 	[CategoryID] int IDENTITY(1,1) PRIMARY KEY,
@@ -50,12 +49,14 @@ CREATE TABLE [dbo].[Orders](
 	[ShipAddress] [nvarchar](60) NULL,
 	[TotalMoney] [money] NULL,
 	[OrderStatus] [smallint] NULL,
+	[isFeedbacked] [bit] NULL,
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED (OrderID),
  CONSTRAINT [FK_Orders_Users] FOREIGN KEY([UserID]) REFERENCES [dbo].[Users] ([UserID])
 )
-
-
-
+select * from Users
+select * from Products
+select * from orders
+select * from Feedbacks
 CREATE TABLE [dbo].[OrderDetails](
 	[OrderID] [int] NOT NULL,
 	[ProductID] [int] NOT NULL,
@@ -69,6 +70,8 @@ CREATE TABLE [dbo].[OrderDetails](
  CONSTRAINT [FK_OrderDetails_Orders] FOREIGN KEY([OrderID]) REFERENCES [dbo].[Orders] ([OrderID]),
  CONSTRAINT [FK_OrderDetails_Products] FOREIGN KEY([ProductID]) REFERENCES [dbo].[Products] ([ProductID])
  )
+ select * from [OrderDetails]
+ SELECT ProductID from OrderDetails WHERE orderID = 48
 
 CREATE TABLE [dbo].[Feedbacks](
 	[FeedbackID] [int] IDENTITY(1,1) PRIMARY KEY,
@@ -78,9 +81,9 @@ CREATE TABLE [dbo].[Feedbacks](
 	[Star] [int] NOT NULL,
 	[CreatedAt] [date] NULL,
 CONSTRAINT [FK_Feedbacks_Products] FOREIGN KEY([ProductID]) REFERENCES [dbo].[Products] ([ProductID]),
-CONSTRAINT [FK_Feedbacks_Users] FOREIGN KEY([UserID])
-REFERENCES [dbo].[Users] ([UserID])
+CONSTRAINT [FK_Feedbacks_Users] FOREIGN KEY([UserID]) REFERENCES [dbo].[Users] ([UserID])
 )
+
 
 CREATE TABLE [dbo].[Notifications](
 	[NotificationID] [int] IDENTITY(1,1) NOT NULL,
@@ -89,10 +92,15 @@ CREATE TABLE [dbo].[Notifications](
 	[Message] [nvarchar](500)NOT NULL,
 	[CreatedAt] [date] NOT NULL DEFAULT GETDATE(),
 	[Type] [smallint] NOT NULL,
+	[OrderID] [int],
  CONSTRAINT [PK_Notifications] PRIMARY KEY CLUSTERED (NotificationID),
- CONSTRAINT [FK_Notifications_Users] FOREIGN KEY([UserID]) REFERENCES [dbo].[Users] ([UserID])
+ CONSTRAINT [FK_Notifications_Users] FOREIGN KEY([UserID]) REFERENCES [dbo].[Users] ([UserID]),
+ CONSTRAINT [FK_Notifications_Orders] FOREIGN KEY([OrderID]) REFERENCES [dbo].[Orders] ([OrderID])
  )
 
+select * from Notifications
+delete from Notifications where OrderID = 50
+delete from Notifications where NotificationID = 43
  CREATE TABLE [dbo].[Cart](
 	[CartID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,

@@ -5,6 +5,8 @@
 package model;
 
 import dal.ProductDAO;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,6 +14,7 @@ import java.util.List;
  * @author xuant
  */
 public class Product {
+
     private int ID;
     private String productName;
     private Category category;
@@ -20,6 +23,7 @@ public class Product {
     private String brand;
     private List<String> images;
     private List<String> productDetails;
+    private List<Feedback> feedbacks;
 
     public Product() {
     }
@@ -96,16 +100,76 @@ public class Product {
     public void setProductDetails(List<String> productDetails) {
         this.productDetails = productDetails;
     }
-    
-    
-    
-    public int getTotalProductSold(){
+
+    public List<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
+    public int getTotalProductSold() {
         ProductDAO pd = new ProductDAO();
         return pd.getTotalProductSold(ID);
     }
-    
-    
+
+//    public List<Double> handleStar(){
+//    // Create an array to store the counts of each star rating
+//    int[] starCounts = new int[5];
+//    // Loop through the feedbacks and increment the corresponding count
+//    for(Feedback f : this.feedbacks){
+//        int star = f.getStar();
+//        if (star >= 1 && star <= 5) {
+//            starCounts[star - 1]++;
+//        }
+//    }
+//    // Calculate the ratio of each star rating and add it to the list
+//    List<Double> ratioEachStar = new ArrayList<>();
+//    double total = feedbacks.size();
+//    // Check if total is zero to avoid division by zero error
+//    if (total == 0) {
+//        // Return a list of zeros for each star rating
+//        return Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0);
+//    } else {
+//        // Calculate the ratio normally
+//        for (int count : starCounts) {
+//            ratioEachStar.add(count / total * 100);
+//        }
+//        return ratioEachStar;
+//    }
+    public List<Integer> handleStar() {
+        // Create an array to store the counts of each star rating
+        int[] starCounts = new int[5]; //0 0 0 0 0
+        // Loop through the feedbacks and increment the corresponding count
+        for (Feedback f : this.feedbacks) {
+            int star = f.getStar();
+            if (star >= 1 && star <= 5) {
+                starCounts[star - 1]++;
+            }
+        }
+        // Convert the array of counts to a list and return it
+        List<Integer> numberOfEachStar = new ArrayList<>();
+        for (int count : starCounts) {
+            numberOfEachStar.add(count);
+        }
+        return numberOfEachStar;
+    }
+
+    public double averageStar() {
+        List<Integer> numberOfEachStar = handleStar();
+        int sum = 0;
+        for (int i = 0; i < numberOfEachStar.size(); i++) {
+            sum += numberOfEachStar.get(i) * (i + 1);
+        }
+        double average = (double) sum / this.feedbacks.size();
+        return Math.round(average * 100) / 100.0;
+
+    }
+
 }
+
+
 /*
  CREATE TABLE [dbo].[Products](
 	[ProductID] [int] IDENTITY(1,1) NOT NULL,
@@ -116,4 +180,4 @@ public class Product {
 	[Brand] [nvarchar](30) NULL,
  CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED (ProductID)
  )
-*/
+ */

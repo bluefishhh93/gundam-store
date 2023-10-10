@@ -39,22 +39,46 @@
 const buttons = document.querySelectorAll('.home-filter__btn');
 
 buttons.forEach(button => {
-  button.addEventListener('click', () => {
-    // Remove the btn--primary class from all buttons
-    buttons.forEach(btn => btn.classList.remove('btn--primary'));
+    button.addEventListener('click', () => {
+        // Remove the btn--primary class from all buttons
+        buttons.forEach(btn => btn.classList.remove('btn--primary'));
 
-    // Add the btn--primary class to the clicked button
-    button.classList.add('btn--primary');
-  });
+        // Add the btn--primary class to the clicked button
+        button.classList.add('btn--primary');
+    });
 });
 
+//const returnBtnEl = document.getElementById('return');
+//returnBtnEl.addEventListener("click", function() {
+//    const feedbackElements = document.querySelectorAll(".feedback");
+//    feedbackElements.forEach(function(element) {
+//        element.style.display = "none";
+//    });
+//    document.querySelector(".modal").style.display = "none";
+//
+//});
 
+
+feedbackFormEl = document.querySelectorAll('.feedback-form');
 returnButtonsEl = document.querySelectorAll('.btn--normal');
-returnButtonsEl.forEach(button =>{
-  button.addEventListener('click', () => {
-    document.querySelector(".modal").style.display = "none";
-  });
+returnButtonsEl.forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector(".modal").style.display = "none";
+    });
 })
+
+returnFeedbackEl = document.querySelectorAll('.return');
+returnFeedbackEl.forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector(".modal").style.display = "none";
+        var feedbackDivs = document.querySelectorAll('form.feedback-form');
+        for (var i = 0; i < feedbackDivs.length; i++) {
+            feedbackDivs[i].style.display = 'none';
+        }
+    });
+})
+
+
 // /////////////////////////////////////////////////////////////////////
 const switchButtonsEl = document.querySelectorAll('.auth-form__switch-btn');
 switchButtonsEl[0].addEventListener('click', login);
@@ -63,24 +87,39 @@ switchButtonsEl[1].addEventListener('click', register);
 ////////////////////////////////////////////////////////////////////////
 
 //Display Login and Register Form
- const loginButtonEl = document.querySelector('.login-button');
- const registerButtonEl = document.querySelector('.register-button');
- 
-  loginButtonEl.addEventListener("click", login);
-  registerButtonEl.addEventListener("click", register);
+const loginButtonEl = document.querySelector('.login-button');
+const registerButtonEl = document.querySelector('.register-button');
+loginButtonEl.addEventListener("click", login);
+registerButtonEl.addEventListener("click", register);
 
- function register() {
+
+
+function register() {
     document.querySelector(".modal").style.display = "block";
     document.querySelector(".register").style.display = "block";
     document.querySelector(".login").style.display = "none";
+//    document.querySelector(".feedback").style.display = "none";
 
-  }
+}
 
-  function login() {
+function login() {
     document.querySelector(".modal").style.display = "block";
     document.querySelector(".login").style.display = "block";
     document.querySelector(".register").style.display = "none";
-  }
-  ////////////////////////////////////////////////////////////////////
+//    document.querySelector(".feedback").style.display = "none";
+}
+
+
+function feedback(orderId) {
+    document.querySelector(".modal").style.display = "block";
+    document.getElementById(`feedback${orderId}`).style.display = "block";
+    document.querySelector(".register").style.display = "none";
+    document.querySelector(".login").style.display = "none";
+
+}
+////////////////////////////////////////////////////////////////////
+
+
+
 
 

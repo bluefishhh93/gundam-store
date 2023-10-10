@@ -208,32 +208,17 @@
                                                             </tr>
                                                             <c:forEach items="${u.getUncheckOrder()}" var="uncheckorder">
                                                             <tr>
-                                                                <td>${uncheckorder.orderID}</td>
-                                                                <td>${uncheckorder.orderDate}</td>
-                                                                <td>${uncheckorder.shipAddress}</td>
-                                                                <td>${u.phone}</td>
-                                                                <td><fmt:formatNumber type="number" groupingUsed="true" value="${uncheckorder.totalMoney}"/> đ</td>
-                                                                <td>Đang vận chuyển</td>
-                                                                <td>
-                                                                    <a href="processorder?action=reject&id=${uncheckorder.orderID}&uid=${u.userID}"><i class="fas fa-trash-alt"></i></a>
-                                                                    <a href="processorder?action=accept&id=${uncheckorder.orderID}&uid=${u.userID}"><i class="fas fa-check"></i></a>
-                                                                </td>
-                                                            <script>
-                                                                
-                                                            </script>
+                                                                    <td>${uncheckorder.orderID}</td>
+                                                                    <td>${uncheckorder.orderDate}</td>
+                                                                    <td>${uncheckorder.shipAddress}</td>
+                                                                    <td>${u.phone}</td>
+                                                                    <td><fmt:formatNumber type="number" groupingUsed="true" value="${uncheckorder.totalMoney}"/> đ</td>
+                                                                    <td>Đang vận chuyển</td>
+                                                                    <td>
+                                                                        <a href="processorder?action=reject&id=${uncheckorder.orderID}&uid=${u.userID}"><i class="fas fa-trash-alt"></i></a>
+                                                                        <a href="processorder?action=accept&id=${uncheckorder.orderID}&uid=${u.userID}"><i class="fas fa-check"></i></a>
+                                                                    </td>
                                                             </tr>              
-<!--                                                            <tr>
-                                                                <td>SP1</td>
-                                                                <td>2023-17-07</td>
-                                                                <td>Đà nẵng</td>
-                                                                <td>0372343515</td>
-                                                                <td>520.000$</td>
-                                                                <td>Trạng thái</td>
-                                                                <td>
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                    <i class="fas fa-check"></i>
-                                                                </td>
-                                                            </tr>              -->
                                                             </c:forEach>
                                                         </table>
                                                     </div>
@@ -245,3 +230,7 @@
                             </div>
                         </div>
                         <%@ include file="footer.jsp" %>
+                        <%@ include file="register.jsp" %>    
+                        <%@ include file="login.jsp" %>
+
+                        

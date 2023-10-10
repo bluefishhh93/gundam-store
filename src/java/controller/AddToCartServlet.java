@@ -89,7 +89,11 @@ public class AddToCartServlet extends HttpServlet {
         List<Item> list = cart.getItems();
         session.setAttribute("cart", cart);
         session.setAttribute("size", list.size());
-        request.getRequestDispatcher("loadpage").forward(request, response);
+        String referer = request.getHeader("referer");
+        if (referer != null) {
+            response.sendRedirect(referer);
+        }
+
         
     } 
 

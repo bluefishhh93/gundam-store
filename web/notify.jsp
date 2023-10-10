@@ -18,17 +18,23 @@
             </header>
             <ul class="header__notify-list">             
                 <c:forEach items="${sessionScope.account.notifications}" var="notify">
-                    <li class="header__notify-item .header__notify-item--viewed">
-                        <a href="notification?nid=${notify.notificationID}" class="header__notify-link" style="text-decoration: none">
+                    <li class="header__notify-item .header__notify-item--viewed">                     
                             <c:choose>
                                 <c:when test="${notify.type eq 1}">
+                                     <a href="notification?nid=${notify.notificationID}" class="header__notify-link" style="text-decoration: none">
                                     <img src="assets/img/dangvanchuyen.jpg" class="header__notify-img" />
                                 </c:when>
                                 <c:when test="${notify.type eq 2}">
+                                     <a href="notification?nid=${notify.notificationID}" class="header__notify-link" style="text-decoration: none">
                                     <img src="assets/img/xacnhandonhang.jpg" class="header__notify-img" />
                                 </c:when>
                                 <c:when test="${notify.type eq 3}">
+                                     <a href="notification?nid=${notify.notificationID}" class="header__notify-link" style="text-decoration: none">
                                     <img src="assets/img/tuchoidonhang.jpg" class="header__notify-img" />
+                                </c:when>
+                                <c:when test="${notify.type eq 4}">
+                                    <a class="header__notify-link" style="text-decoration: none" onclick="feedback(${notify.orderId})">
+                                    <img src="assets/img/danhgiadonhang.jpg" class="header__notify-img"/>
                                 </c:when>
                             </c:choose>
                             <div class="header__notify-info">

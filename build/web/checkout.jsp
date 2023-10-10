@@ -60,7 +60,7 @@
                     <tr>
                         <td></td>
                         <td>
-                            <form action="checkout" method="post">
+                            <form method="post" action="checkout">
                                 <span>Tỉnh/Thành phố:</span> 
                                 <select name="province" id="province" required>
                                      <option value="">Chọn quận</option>

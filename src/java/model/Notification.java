@@ -20,17 +20,18 @@ public class Notification {
     private String message;
     private Date createAt;
     private int type;
-
+    private int orderId;
     public Notification() {
     }
 
-    public Notification(int notificationID, int userID, String title, String message, Date createAt, int type) {
+    public Notification(int notificationID, int userID, String title, String message, Date createAt, int type, int orderId) {
         this.notificationID = notificationID;
         this.userID = userID;
         this.title = title;
         this.message = message;
         this.createAt = createAt;
         this.type = type;
+        this.orderId = orderId;
     }
 
     public int getNotificationID() {
@@ -90,6 +91,16 @@ public class Notification {
     public void setType(int type) {
         this.type = type;
     }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+    
+    
     
     
 

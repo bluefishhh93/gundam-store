@@ -8,14 +8,17 @@
         <filter-name>AdminFilter</filter-name>
         <filter-class>filter.AdminFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>CheckoutFilter</filter-name>
+        <filter-class>filter.CheckoutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CheckoutFilter</filter-name>
+        <url-pattern>/checkout.jsp</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/usermanager</url-pattern>
-        <url-pattern>/ordermanager</url-pattern>
-        <url-pattern>/productmanager</url-pattern>
-        <url-pattern>/dashboardmanager</url-pattern>
-        <url-pattern>/categorymanager</url-pattern>
-        <url-pattern>/adminpage</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>UserFilter</filter-name>

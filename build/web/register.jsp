@@ -66,3 +66,5 @@
             </div>
         </div>
         <!-- register.jsp -->
+        
+<%@ include file="feedback.jsp" %>        

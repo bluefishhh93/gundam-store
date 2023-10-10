@@ -60,8 +60,8 @@ public class SingleProductServlet extends HttpServlet {
     throws ServletException, IOException {
         int productID = Integer.parseInt(request.getParameter("productid"));
         ProductDAO pd = new ProductDAO();
-        HttpSession session = request.getSession();
-        session.setAttribute("account", session.getAttribute("account"));
+//        HttpSession session = request.getSession();
+//        session.setAttribute("account", session.getAttribute("account"));
         Product p = pd.getProductByID(productID);
         request.setAttribute("product", p);
         

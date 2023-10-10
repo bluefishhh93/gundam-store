@@ -37,15 +37,35 @@ public class UserDAO extends DBcontext {
 
         return null;
     }
+    
+    public User getUserById(int userId) {
+        String sql = "SELECT * FROM Users WHERE [UserID] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User user = new User(rs.getInt("UserID"), rs.getString("Password"),
+                        rs.getString("Name"), rs.getString("phone"),
+                        rs.getString("Email"), rs.getBoolean("isAdmin"));
 
-    public User check(String Email, String password) {
+                return user;
+            }
+
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
+
+    public User check(String email, String password) {
         String sql = "SELECT *\n"
                 + "  FROM [dbo].[Users]\n"
                 + "  WHERE [Email] =?\n"
                 + "  AND [Password] = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, Email);
+            st.setString(1, email);
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -123,11 +143,28 @@ public class UserDAO extends DBcontext {
         }
         return number;
     }
+//     
+//     public void deleteUser(int userId){
+//         String sql = "DELETE FROM Users WHERE ?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, userId);
+//            st.executeUpdate();
+//        } catch (Exception e) {
+//        }
+//     }
+     
+     public void disableUser(int userId){
+         
+     }
     
 
     public static void main(String[] args) {
         UserDAO ud = new UserDAO();
 //        System.out.println(ud.check("thanh@gmail.com", "123321").getUncheckOrder());
-        System.out.println(ud.getNumberUser());
+//        System.out.println(ud.getNumberUser());
+        User user = ud.getUserByEmail("johny@gmail.com");
+           System.out.println(user.getUnfeedbackedOrder().get(0).getShippedDate());
+           System.out.println(user.getUnfeedbackedProduct(48));
     }
 }
