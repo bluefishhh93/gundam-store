@@ -39,6 +39,7 @@ The Gundam Store project is a Java web application that serves as an online stor
   - HTML
   - CSS
   - JavaScript
+  - Bootstrap
 
 - **Backend:**
   - Java Servlets
@@ -47,15 +48,46 @@ The Gundam Store project is a Java web application that serves as an online stor
 
 ## Demo
 
-![Homepage](![Screenshot 2023-11-29 193103](https://github.com/bluefishhh93/gundam-store/assets/137422462/4893a6fa-d87c-40df-b9d5-a7ac4e526875)
-)
+Homepage![Screenshot 2023-11-29 193103](https://github.com/bluefishhh93/gundam-store/assets/137422462/4893a6fa-d87c-40df-b9d5-a7ac4e526875)
+![Screenshot 2023-11-29 193112](https://github.com/bluefishhh93/gundam-store/assets/137422462/7ee175b9-422d-46f8-b0b8-905a22b3e38a)
+![Screenshot 2023-11-29 193425](https://github.com/bluefishhh93/gundam-store/assets/137422462/23c095e9-6426-40fb-bfa5-465ae229a415)
+
+
 *Figure 1: Homepage of the Gundam Store.*
 
-![Product Catalog](/path/to/catalog-screenshot.png)
-*Figure 2: Product catalog displaying Gundam model kits.*
+Product Catalog![Screenshot 2023-11-29 193551](https://github.com/bluefishhh93/gundam-store/assets/137422462/67458bbd-3e1f-4032-bede-083d521d1d60))
+![Screenshot 2023-11-29 193559](https://github.com/bluefishhh93/gundam-store/assets/137422462/b633e147-8115-4da0-9e94-6ebd6a240ed2)
 
-![Shopping Cart](/path/to/cart-screenshot.png)
-*Figure 3: Shopping cart with added items.*
+Login and Register
+![Screenshot 2023-11-29 193143](https://github.com/bluefishhh93/gundam-store/assets/137422462/a668017c-670d-474e-8ee9-b542e2a1130a)
+![Screenshot 2023-11-29 193136](https://github.com/bluefishhh93/gundam-store/assets/137422462/415b8783-ded4-4969-9c0e-68b42fcc1713)
+*Figure 2: Login and register modal
+
+
+Feedback
+![Screenshot 2023-11-29 193520](https://github.com/bluefishhh93/gundam-store/assets/137422462/a0a7190c-43a5-4f7e-a034-b893323d95ab)
+
+
+*Figure 3: Detaily display product and feedback.*
+
+Shopping Cart![Screenshot 2023-11-29 195544](https://github.com/bluefishhh93/gundam-store/assets/137422462/c4683efc-c77a-46a8-8b1b-68f8c12128e6)
+
+*Figure 4: Shopping cart with added items.*
+
+Checkout Function![Screenshot 2023-11-29 193327](https://github.com/bluefishhh93/gundam-store/assets/137422462/384d441b-3849-4162-9171-66bf30f70504)
+*Figure 5: Adding information and checkout.*
+
+User profile
+![Screenshot 2023-11-29 193212](https://github.com/bluefishhh93/gundam-store/assets/137422462/c0127bef-688b-41f6-a7f8-fd0c643ade60)
+*Figure 7: User information and order status.*
+
+Admin side
+![Screenshot 2023-11-29 193235](https://github.com/bluefishhh93/gundam-store/assets/137422462/c4126699-e005-4431-a8ed-c44ee81db920)
+![Screenshot 2023-11-29 193242](https://github.com/bluefishhh93/gundam-store/assets/137422462/c83ed10d-0449-4916-badc-a8ce435ec529)
+![Screenshot 2023-11-29 193249](https://github.com/bluefishhh93/gundam-store/assets/137422462/b223f8a9-dfd2-43b3-bc2c-25135c55e5a0)
+
+
+*Figure 8: Admin dashboard*
 
 ## Setup
 
@@ -79,11 +111,5 @@ The Gundam Store project is a Java web application that serves as an online stor
 
 ## Contributors
 
-- [Your Name]
-- [Contributor 1]
-- [Contributor 2]
-
-## License
-
-This project is licensed under the [Your License] License - see the [LICENSE.md](LICENSE.md) file for details.
+- [Bluefishhh93]
 
