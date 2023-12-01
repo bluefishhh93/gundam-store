@@ -45,6 +45,8 @@ The Gundam Store project is a Java web application that serves as an online stor
   - Java Servlets
   - JavaServer Pages (JSP)
   - JDBC for database connectivity
+## Database Design
+![image](https://github.com/bluefishhh93/gundam-store/assets/137422462/ad7a0b8e-1d4f-4800-809b-f379fd6edb95)
 
 ## Demo
 
